@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="450" viewBox="0 0 800 450" fill="none">
+  <rect width="800" height="450" fill="#F3F3F0"/>
+  <rect x="1" y="1" width="798" height="448" stroke="rgba(0,0,0,0.06)" stroke-width="2" fill="none"/>
+  <text x="400" y="228" text-anchor="middle" font-family="ui-monospace, monospace" font-size="14" fill="#999993">Cover image</text>
+</svg>
