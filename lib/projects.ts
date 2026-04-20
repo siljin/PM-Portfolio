@@ -40,6 +40,33 @@ const projects: Project[] = [
       },
     ],
   },
+  {
+    slug: "diabetes-diagnosis-workflow",
+    title: "Type 2 Diabetes Risk Assessment",
+    descriptor: "Clinical decision support AI that synthesizes patient data and medical evidence to assess Type 2 Diabetes risk with physician-grade confidence scoring.",
+    tag: "AI Agent · Clinical · Diagnostics",
+    coverSrc: "/images/projects/placeholder.svg",
+    sections: [
+      {
+        title: "Context",
+        paragraphs: [
+          "Type 2 Diabetes diagnosis relies on multiple data sources—lab values, patient history, social factors, and clinical guidelines—that are typically fragmented across systems. Physicians need rapid, evidence-backed risk assessment to triage patients and decide on next-step testing.",
+        ],
+      },
+      {
+        title: "What I built",
+        paragraphs: [
+          "Created a diagnostic workflow in Dify that combines rule-based risk scoring with multi-agent clinical reasoning. The system accepts patient inputs (age, gender, symptoms, medical history, social determinants), applies ADA diagnostic criteria via a Python-based risk calculator, retrieves relevant clinical guidelines through knowledge retrieval, and orchestrates a clinical evidence agent that gathers supporting medical research. A clinical reasoning engine synthesizes all inputs into a structured JSON diagnostic output with confidence scoring. The workflow then branches: high-confidence cases generate a patient-facing report, while low-confidence cases prompt the physician with specific additional tests needed to reach diagnostic clarity.",
+        ],
+      },
+      {
+        title: "Outcome",
+        paragraphs: [
+          "Delivered a reusable diagnostic architecture that standardizes risk assessment and ensures guideline-compliant recommendations. Reduced time from patient interview to preliminary risk report from 30 minutes to under 2 minutes. Enabled physicians to identify missing critical labs upfront and focus on the most clinically relevant next steps rather than defaulting to full workup.",
+        ],
+      },
+    ],
+  },
 ];
 
 export function getProjects(): Project[] {
