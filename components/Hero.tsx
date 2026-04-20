@@ -1,66 +1,48 @@
 "use client";
 
 import Link from "next/link";
-import { useCallback, useEffect, useRef, useState } from "react";
-import { full_name } from "@/lib/global-variables";
-
-const stats = [
-  { value: "X+", label: "years experience" },
-  { value: "XXK+", label: "users impacted" },
-  { value: "XX%", label: "key metric improved" },
-];
+import { full_name, resume_url } from "@/lib/global-variables";
 
 export function Hero() {
-  const sectionRef = useRef<HTMLElement>(null);
-  const [reducedMotion, setReducedMotion] = useState(false);
-
-  useEffect(() => {
-    const mq = window.matchMedia("(prefers-reduced-motion: reduce)");
-    setReducedMotion(mq.matches);
-    const onChange = () => setReducedMotion(mq.matches);
-    mq.addEventListener("change", onChange);
-    return () => mq.removeEventListener("change", onChange);
-  }, []);
-
-  const onMouseMove = useCallback((e: React.MouseEvent<HTMLElement>) => {
-    if (reducedMotion) return;
-    const node = sectionRef.current;
-    if (!node) return;
-    const r = node.getBoundingClientRect();
-    node.style.setProperty("--hx", `${e.clientX - r.left}px`);
-    node.style.setProperty("--hy", `${e.clientY - r.top}px`);
-  }, [reducedMotion]);
-
   return (
-    <section
-      ref={sectionRef}
-      id="top"
-      className="section hero"
-      onMouseMove={onMouseMove}
-    >
-      {!reducedMotion ? <div className="heroSpotlight" aria-hidden /> : null}
-      <p className="heroEyebrow">Product Manager · AI · [Your Domain]</p>
-      <h1>{full_name}</h1>
-      <p className="heroBio">
-        I turn messy problem spaces into shipped outcomes people can rely on.
-        I focus on clarity for users and teams—framing decisions, tightening
-        loops, and shipping learning that compounds.
-      </p>
-      <div className="heroActions">
-        <Link href="/#projects" className="btn btnPrimary">
-          View projects
-        </Link>
-        <Link href="/#contact" className="btn btnGhost">
-          Contact
-        </Link>
-      </div>
-      <div className="heroStats">
-        {stats.map((s) => (
-          <div key={s.label}>
-            <div className="statValue">{s.value}</div>
-            <div className="statLabel">{s.label}</div>
-          </div>
-        ))}
+    <section id="hero">
+      <div className="hero-bg-grid" aria-hidden />
+      <div className="hero-bg-glow" aria-hidden />
+
+      <div className="hero-inner">
+        <p className="hero-intro">Hi, I&apos;m</p>
+        <h1 className="hero h1">{full_name}</h1>
+        <p className="hero-bio">
+          I started as an engineer, but the more I built, the more I cared
+          about who I was building for and why. I went back to get my MBA to
+          sharpen my product thinking, business strategy, and user intuition,
+          with a clear aim to build things that meaningfully improve
+          people&apos;s lives.
+        </p>
+        <div className="heroActions">
+          <Link href="#work" className="btn btnPrimary">
+            View My Work
+            <svg width="14" height="14" fill="none" viewBox="0 0 16 16">
+              <path
+                d="M8 3l5 5-5 5M3 8h10"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+              />
+            </svg>
+          </Link>
+          <Link href={resume_url} target="_blank" className="btn btnGhost">
+            View Resume
+            <svg width="13" height="13" fill="none" viewBox="0 0 16 16">
+              <path
+                d="M3 13h10M8 3v7m-3.5-3.5L8 10l3.5-3.5"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+              />
+            </svg>
+          </Link>
+        </div>
       </div>
     </section>
   );

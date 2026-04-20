@@ -5,9 +5,14 @@ export function ProjectGrid() {
   const projects = getProjects();
 
   return (
-    <section id="projects" className="section">
-      <p className="sectionLabel mono">Projects</p>
-      <div className="projectsGrid">
+    <section id="projects">
+      <div className="section-label">Builder</div>
+      <h2 className="section-title">Side Projects</h2>
+      <p className="section-sub">
+        Things I built for myself — because the best way to understand product
+        is to ship one.
+      </p>
+      <div className="projects-grid">
         {projects.map((p) => (
           <ProjectCard key={p.slug} project={p} />
         ))}
