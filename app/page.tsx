@@ -1,4 +1,3 @@
-import { About } from "@/components/About";
 import { CaseStudies } from "@/components/CaseStudies";
 import { ContactSection } from "@/components/ContactSection";
 import { Hero } from "@/components/Hero";
@@ -14,9 +13,6 @@ export default function Home() {
       </Reveal>
       <Reveal>
         <ProjectGrid />
-      </Reveal>
-      <Reveal>
-        <About />
       </Reveal>
       <Reveal>
         <ContactSection />
