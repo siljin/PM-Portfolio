@@ -63,10 +63,10 @@ nav {
   left: 0;
   right: 0;
   z-index: 100;
-  background: rgba(10, 10, 10, 0.97);
+  background: rgba(255, 255, 255, 0.95);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
-  border-bottom: 1px solid var(--border);
+  border-bottom: 1px solid var(--border-light);
   padding: 0 5%;
 }
 
@@ -85,7 +85,7 @@ nav {
   font-weight: 600;
   letter-spacing: -0.01em;
   text-decoration: none;
-  color: var(--white);
+  color: var(--ink);
   margin-right: auto;
   white-space: nowrap;
 }
@@ -100,7 +100,7 @@ nav {
 .nav-links a {
   font-size: 14px;
   font-weight: 500;
-  color: rgb(207, 215, 236);
+  color: var(--muted);
   text-decoration: none;
   padding: 0;
   border-radius: 0;
@@ -113,7 +113,7 @@ nav {
 
 .nav-links a:hover,
 .nav-links a:focus-visible {
-  color: var(--white);
+  color: var(--ink);
   background: transparent;
   outline: none;
 }
@@ -134,8 +134,8 @@ nav {
 .nav-resume {
   font-size: 13px !important;
   font-weight: 600 !important;
-  color: var(--white) !important;
-  border: 1.5px solid rgba(255, 255, 255, 0.25) !important;
+  color: var(--blue) !important;
+  border: 1.5px solid var(--blue) !important;
   padding: 6px 14px !important;
   border-radius: 6px !important;
   transition: border-color 0.2s, background 0.2s !important;
@@ -145,6 +145,7 @@ nav {
 .nav-resume:hover {
   border-color: var(--blue2) !important;
   background: var(--blue-dim) !important;
+  color: var(--blue2) !important;
 }
 
 .nav-hamburger {
@@ -152,7 +153,7 @@ nav {
   background: none;
   border: none;
   cursor: pointer;
-  color: white;
+  color: var(--ink);
   font-size: 22px;
 }
 
@@ -163,10 +164,10 @@ nav {
   top: 60px;
   left: 0;
   right: 0;
-  background: var(--ink2);
+  background: var(--white);
   padding: 20px 5%;
   gap: 18px;
-  border-bottom: 1px solid var(--border);
+  border-bottom: 1px solid var(--border-light);
 }
 
 /* SECTIONS */
@@ -752,15 +753,15 @@ section {
 
 /* SIDE PROJECTS */
 #projects {
-  background: #0f0f0f;
+  background: var(--white);
 }
 
 #projects .section-title {
-  color: var(--white);
+  color: var(--ink);
 }
 
 #projects .section-sub {
-  color: rgba(247, 249, 255, 0.45);
+  color: var(--muted);
 }
 
 .projects-grid {
@@ -770,8 +771,8 @@ section {
 }
 
 .project-card {
-  background: rgba(255, 255, 255, 0.04);
-  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: var(--paper);
+  border: 1px solid var(--border-light);
   border-radius: 10px;
   padding: 24px;
   text-decoration: none;
@@ -783,8 +784,8 @@ section {
 }
 
 .project-card:hover {
-  background: rgba(255, 255, 255, 0.07);
-  border-color: rgba(31, 85, 232, 0.4);
+  background: var(--paper2);
+  border-color: var(--blue);
 }
 
 .project-icon {
@@ -1099,7 +1100,7 @@ section {
 
 /* CONTACT */
 #contact {
-  background: #0f0f0f;
+  background: var(--white);
   text-align: center;
   padding: 96px 5%;
 }
@@ -1109,14 +1110,14 @@ section {
   font-size: clamp(28px, 4vw, 52px);
   font-weight: 800;
   letter-spacing: -0.03em;
-  color: var(--white);
+  color: var(--ink);
   margin-bottom: 16px;
   line-height: 1.05;
 }
 
 .contact-sub {
   font-size: 16px;
-  color: rgba(247, 249, 255, 0.45);
+  color: var(--muted);
   margin-bottom: 36px;
 }
 
