@@ -1,8 +1,10 @@
+import Link from "next/link";
 import { getProjects } from "@/lib/projects";
 import { ProjectCard } from "./ProjectCard";
 
 export function ProjectGrid() {
-  const projects = getProjects();
+  const allProjects = getProjects();
+  const projects = allProjects.slice(0, 2);
 
   return (
     <div className="projects-band">
@@ -21,7 +23,7 @@ export function ProjectGrid() {
               <ProjectCard key={p.slug} project={p} />
             ))}
 
-            <a href="/projects" className="view-all" aria-label="View all projects">
+            <Link href="/projects" className="view-all" aria-label="View all projects">
               <div className="stack">
                 <div className="stack-layer back-2"></div>
                 <div className="stack-layer back-1"></div>
@@ -33,7 +35,7 @@ export function ProjectGrid() {
                     </svg>
                   </div>
                   <div className="va-title">View all projects</div>
-                  <div className="va-desc">Everything I've built on the side — prototypes, experiments, tools.</div>
+                  <div className="va-desc">Everything I&apos;ve built on the side — prototypes, experiments, tools.</div>
                   <span className="va-btn">
                     View all
                     <svg className="arrow" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
@@ -43,7 +45,7 @@ export function ProjectGrid() {
                   {/* <div className="va-count">8 projects</div> */}
                 </div>
               </div>
-            </a>
+            </Link>
           </div>
         </section>
       </div>
