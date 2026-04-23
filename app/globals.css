@@ -1043,7 +1043,7 @@ section.block {
 }
 
 /* Projects section */
-.projects-band {
+.applications-band {
   background: var(--bg-subtle);
   border-top: 1px solid var(--line-soft);
   border-bottom: 1px solid var(--line-soft);
@@ -1051,14 +1051,14 @@ section.block {
   z-index: 1;
 }
 
-.projects {
+.applications {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 24px;
   align-items: stretch;
 }
 
-.project-card {
+.application-card {
   position: relative;
   background: var(--bg);
   border: 1px solid var(--line);
@@ -1069,13 +1069,13 @@ section.block {
   transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1), border-color 0.35s ease, box-shadow 0.35s ease;
 }
 
-.project-card:hover {
+.application-card:hover {
   border-color: var(--blue-bright);
   transform: translateY(-4px);
   box-shadow: 0 24px 48px -20px rgba(37, 99, 235, 0.15);
 }
 
-.project-icon {
+.application-icon {
   width: 48px;
   height: 48px;
   border-radius: 12px;
@@ -1088,7 +1088,7 @@ section.block {
   box-shadow: 0 8px 20px -8px rgba(37, 99, 235, 0.4);
 }
 
-.project-title {
+.application-title {
   font-family: var(--font-fraunces);
   font-weight: 500;
   font-size: 24px;
@@ -1098,7 +1098,7 @@ section.block {
   margin-bottom: 14px;
 }
 
-.project-desc {
+.application-desc {
   color: var(--muted);
   font-size: 15px;
   line-height: 1.6;
@@ -1106,7 +1106,7 @@ section.block {
   flex: 1;
 }
 
-.project-tags {
+.application-tags {
   display: flex;
   gap: 8px;
   flex-wrap: wrap;
@@ -1114,13 +1114,13 @@ section.block {
   border-top: 1px solid var(--line-soft);
 }
 
-.project-card:has(.project-actions) .project-tags {
+.application-card:has(.application-actions) .application-tags {
   border-top: none;
   padding-top: 0;
   margin-bottom: 0;
 }
 
-.project-actions {
+.application-actions {
   display: flex;
   align-items: center;
   justify-content: space-between;

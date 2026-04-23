@@ -14,7 +14,7 @@ export function Nav() {
             <span className="pulse"></span>
             Open to internships - 2026
           </span>
-          <a href="#projects">Projects</a>
+          <a href="#applications">Applications</a>
           <a href="#work">Work</a>
           {/* <a href="#about">About</a> */}
           <a href="#contact">Contact</a>

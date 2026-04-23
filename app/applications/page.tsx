@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { useState } from "react";
-import { getProjects } from "@/lib/projects";
+import { getProjects } from "@/lib/applications";
 
 export default function ProjectsPage() {
   const projects = getProjects();
@@ -119,7 +119,7 @@ export default function ProjectsPage() {
                   </a>
                 )}
                 <Link
-                  href={`/projects/${selectedProject.slug}`}
+                  href={`/applications/${selectedProject.slug}`}
                   className="projects-read-btn"
                 >
                   Read case study
