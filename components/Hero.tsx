@@ -1,6 +1,6 @@
 "use client";
 
-import { resume_url } from "@/lib/global-variables";
+import { resume_url, heroParagraph } from "@/lib/global-variables";
 
 export function Hero() {
   return (
@@ -17,7 +17,7 @@ export function Hero() {
             Siljin <span className="accent">Sebastian.</span>
           </h1>
           <p className="hero-intro fade-up d4">
-            I started as an <strong>engineer</strong>, but the more I built, the more I cared about <em>who</em> I was building for and <em>why</em>. I went back to get my <strong>MBA</strong> to sharpen my product thinking, business strategy, and user intuition — with a clear aim to build things that meaningfully improve people&apos;s lives.
+            {heroParagraph}
           </p>
           <div className="hero-cta fade-up d5">
             <a href="#work" className="btn btn-primary">

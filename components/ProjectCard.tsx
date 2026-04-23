@@ -11,7 +11,7 @@ export function ProjectCard({ project }: ProjectCardProps) {
     <article className="project-card">
       <div className="project-icon">
         <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-          <path d="M12 2 2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" />
+          <path d={project.iconPath} />
         </svg>
       </div>
       <h3 className="project-title">{project.title}</h3>

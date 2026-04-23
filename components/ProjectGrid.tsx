@@ -40,7 +40,7 @@ export function ProjectGrid() {
                       <path d="M5 12h14M13 5l7 7-7 7" />
                     </svg>
                   </span>
-                  <div className="va-count">8 projects</div>
+                  {/* <div className="va-count">8 projects</div> */}
                 </div>
               </div>
             </a>

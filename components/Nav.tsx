@@ -12,7 +12,7 @@ export function Nav() {
         <div className="nav-links">
           <span className="nav-status">
             <span className="pulse"></span>
-            Open to PM roles
+            Open to internships - 2026
           </span>
           <a href="#projects">Projects</a>
           <a href="#work">Work</a>

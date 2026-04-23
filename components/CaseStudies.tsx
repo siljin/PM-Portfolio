@@ -80,7 +80,7 @@ export function CaseStudies() {
                     <path d="M5 12h14M13 5l7 7-7 7" />
                   </svg>
                 </span>
-                <div className="va-count">12 studies</div>
+                {/* <div className="va-count">12 studies</div> */}
               </div>
             </div>
           </a>
