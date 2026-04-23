@@ -1,4 +1,3 @@
-import Link from "next/link";
 import type { Project } from "@/lib/projects";
 
 type ProjectCardProps = {
@@ -31,7 +30,7 @@ export function ProjectCard({ project }: ProjectCardProps) {
             <path d="M5 12h14M13 5l7 7-7 7" />
           </svg>
         </a>
-        <a href="#" className="try-btn">
+        <a href={project.tryItUrl} target="_blank" rel="noopener noreferrer" className="try-btn">
           Try it
           <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
             <path d="M7 17L17 7M7 7h10v10" />

@@ -23,10 +23,10 @@ export function Hero() {
             <a href="#work" className="btn btn-primary">
               View My Work
               <svg className="arrow" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
-                <path d="M5 12h14M13 5l7 7-7 7" />
+                <path d="M12 5v14M5 13l7 7 7-7" />
               </svg>
             </a>
-            <a href={resume_url} className="btn btn-ghost">
+            <a href={resume_url} className="btn btn-ghost" target="_blank" rel="noopener noreferrer">
               View Resume
               <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
                 <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3" />
@@ -42,11 +42,11 @@ export function Hero() {
           </div>
           <div className="meta-item">
             <div className="label">Background</div>
-            <div className="value">Engineer → MBA → PM</div>
+            <div className="value">Computer Engineer → MBA</div>
           </div>
           <div className="meta-item">
             <div className="label">Focus</div>
-            <div className="value">Product-led growth, AI</div>
+            <div className="value">Strategy, Product-led growth, AI</div>
           </div>
         </div>
       </div>

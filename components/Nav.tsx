@@ -10,15 +10,15 @@ export function Nav() {
           Siljin Sebastian<span className="dot">.</span>
         </a>
         <div className="nav-links">
-          <a href="#work">Work</a>
           <span className="nav-status">
             <span className="pulse"></span>
             Open to PM roles
           </span>
           <a href="#projects">Projects</a>
-          <a href="#about">About</a>
+          <a href="#work">Work</a>
+          {/* <a href="#about">About</a> */}
           <a href="#contact">Contact</a>
-          <a href={resume_url} className="nav-resume" download>
+          <a href={resume_url} className="nav-resume" target="_blank" rel="noopener noreferrer">
             Resume
             <svg
               width="12"

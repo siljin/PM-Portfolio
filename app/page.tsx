@@ -11,8 +11,8 @@ export default function Home() {
       <div className="ambient"></div>
       <Hero />
       <PeekHint />
-      <CaseStudies />
       <ProjectGrid />
+      <CaseStudies />
       <ContactSection />
     </main>
   );

@@ -11,3 +11,7 @@ export const linkedIn_url = "https://www.linkedin.com/in/siljin-sebastian";
 
 /** Google Drive resume link. Replace with your shareable link. */
 export const resume_url = "https://drive.google.com/file/d/1LX175lj78ZXR3jjjPOFQYOcEg830SIzS/view?usp=drive_link";
+
+/** Project demo URLs */
+export const priorAuthUrl = "https://udify.app/workflow/Nd1XsLQUc9O6QoVp";
+export const diabetesRiskUrl = "https://udify.app/workflow/A32PxMNwfQoqZrxN";
