@@ -80,14 +80,14 @@ export default function ProjectsPage() {
                 {selectedProject.descriptor}
               </p>
 
-              {selectedProject.highlight && (
+              {/* {selectedProject.highlight && (
                 <div className="projects-content-highlight">
                   <div className="projects-highlight-label">Outcome</div>
                   <div className="projects-highlight-text">
                     {selectedProject.highlight}
                   </div>
                 </div>
-              )}
+              )} */}
 
               <div className="projects-content-tags">
                 {selectedProject.tag.split(" · ").map((tag) => (
