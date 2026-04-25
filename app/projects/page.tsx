@@ -38,7 +38,7 @@ export default function ProjectsPage() {
         {/* SIDEBAR */}
         <aside className="projects-sidebar">
           <div className="projects-sidebar-header">
-            <h1 className="projects-sidebar-title">Projects</h1>
+            <h1 className="projects-sidebar-title">Case Studies</h1>
             <p className="projects-sidebar-subtitle">Select to explore</p>
           </div>
           <ul className="projects-list">
@@ -69,10 +69,25 @@ export default function ProjectsPage() {
                 <h2 className="projects-content-title">
                   {selectedCase.title}
                 </h2>
-                {selectedCase.category && (
-                  <div className="projects-content-category">
-                    {selectedCase.category}
-                  </div>
+                {selectedCase.deckUrl && (
+                  <a
+                    href={selectedCase.deckUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="projects-read-btn"
+                  >
+                    View Deck
+                    <svg
+                      width="14"
+                      height="14"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="2"
+                    >
+                      <path d="M5 12h14M17 12l-4-4M17 12l-4 4" />
+                    </svg>
+                  </a>
                 )}
               </div>
 
@@ -99,21 +114,22 @@ export default function ProjectsPage() {
                 </div>
               </div>
 
-              <div className="projects-content-actions">
-                <button className="projects-read-btn">
-                  Read full case study
-                  <svg
-                    width="14"
-                    height="14"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="2"
-                  >
-                    <path d="M5 12h14M13 5l7 7-7 7" />
-                  </svg>
-                </button>
-              </div>
+              {selectedCase.sections && selectedCase.sections.length > 0 && (
+                <div className="projects-content-sections">
+                  {selectedCase.sections.map((section) => (
+                    <section key={section.title} className="content-section">
+                      <h3 className="section-subtitle">{section.title}</h3>
+                      {section.paragraphs.map((paragraph, idx) => (
+                        <p key={idx} className="section-paragraph">
+                          {paragraph}
+                        </p>
+                      ))}
+                    </section>
+                  ))}
+                </div>
+              )}
+
+
             </>
           ) : (
             <div className="projects-content-header">

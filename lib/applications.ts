@@ -29,7 +29,7 @@ const projects: Project[] = [
     descriptor: "Clinical decision support AI that synthesizes patient data and medical evidence to assess Type 2 Diabetes risk with physician-grade confidence scoring.",
     tag: "AI Agent · Clinical · Diagnostics",
     category: "AI Agent · Clinical",
-    highlight: "94% accuracy on test cohort; currently in clinical validation.",
+    // highlight: "94% accuracy on test cohort; currently in clinical validation.",
     coverSrc: "/images/applications/diabetes-diagnosis.svg",
     tryItUrl: diabetesRiskUrl,
     iconPath: "M3 12h4l2-5 3 10 2-6 2 4h4",
@@ -46,12 +46,12 @@ const projects: Project[] = [
           "Created a diagnostic workflow in Dify that combines rule-based risk scoring with multi-agent clinical reasoning. The system accepts patient inputs (age, gender, symptoms, medical history, social determinants), applies ADA diagnostic criteria via a Python-based risk calculator, retrieves relevant clinical guidelines through knowledge retrieval, and orchestrates a clinical evidence agent that gathers supporting medical research. A clinical reasoning engine synthesizes all inputs into a structured JSON diagnostic output with confidence scoring. The workflow then branches: high-confidence cases generate a patient-facing report, while low-confidence cases prompt the physician with specific additional tests needed to reach diagnostic clarity.",
         ],
       },
-      {
-        title: "Outcome",
-        paragraphs: [
-          "Delivered a reusable diagnostic architecture that standardizes risk assessment and ensures guideline-compliant recommendations. Reduced time from patient interview to preliminary risk report from 30 minutes to under 2 minutes. Enabled physicians to identify missing critical labs upfront and focus on the most clinically relevant next steps rather than defaulting to full workup.",
-        ],
-      },
+      // {
+      //   title: "Outcome",
+      //   paragraphs: [
+      //     "Delivered a reusable diagnostic architecture that standardizes risk assessment and ensures guideline-compliant recommendations. Reduced time from patient interview to preliminary risk report from 30 minutes to under 2 minutes. Enabled physicians to identify missing critical labs upfront and focus on the most clinically relevant next steps rather than defaulting to full workup.",
+      //   ],
+      // },
     ],
   },
   {
@@ -88,7 +88,7 @@ const projects: Project[] = [
       {
         title: "Impact",
         paragraphs: [
-          "Through these efforts, the MBA Tech Club expanded its reach, formalized its operations, and established a stronger institutional foundation for future cohorts — contributing to a community of over 50 engaged MBA students participating in 20+ events per year.",
+          "Through these efforts, the MBA Tech Club expanded its reach, formalized its operations, and established a stronger institutional foundation for future cohorts — contributing to a community of over 60+ engaged MBA students participating in 20+ events per year.",
         ],
       },
     ],
@@ -101,7 +101,7 @@ const projects: Project[] = [
     descriptor: "Agentic AI system to automate insurance prior authorization requests—reducing manual effort and improving approval turnaround.",
     tag: "AI Agent · Healthcare",
     category: "AI Agent · Healthcare",
-    highlight: "Deployed at 3 health systems, processing 2k+ requests/month.",
+    // highlight: "Deployed at 3 health systems, processing 2k+ requests/month.",
     coverSrc: "/images/applications/prior-auth.svg",
     tryItUrl: priorAuthUrl,
     iconPath: "M3 12h4l2-5 3 10 2-6 2 4h4",

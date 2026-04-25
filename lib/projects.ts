@@ -1,3 +1,10 @@
+import { waystarDeckUrl, retentionDeckUrl, searchDeckUrl } from "./global-variables";
+
+export type ProjectSection = {
+  title: string;
+  paragraphs: string[];
+};
+
 export type Project = {
   id: string;
   eyebrow: string;
@@ -9,20 +16,59 @@ export type Project = {
   metric2: string;
   metric2Label: string;
   tags: string[];
+  deckUrl: string;
+  sections?: ProjectSection[];
+  imageSrc?: string;
 };
 
 const projects: Project[] = [
   {
-    id: "onboarding",
+    id: "waystar",
     eyebrow: "P. 01",
-    title: "Onboarding Redesign",
-    category: "B2B SaaS Growth",
-    desc: "Led a full rebuild of the first-run experience for a B2B SaaS product. Mapped dropoff, ran 3 experiments, shipped in 6 weeks.",
-    metric1: "+23%",
-    metric1Label: "activation rate",
-    metric2: "6 weeks",
-    metric2Label: "to ship",
-    tags: ["B2B SaaS", "Growth", "Onboarding"],
+    title: "RCM Market Strategy",
+    category: "Healthcare Technology · Strategy",
+    desc: "Delivered a market-level strategic assessment of the $23B U.S. Revenue Cycle Management landscape for Waystar. Mapped value chain dynamics across eight stages, identified structural moats, and produced ranked recommendations with a defined 2026–2028 action window.",
+    metric1: "$23B",
+    metric1Label: "TAM analyzed",
+    metric2: "5",
+    metric2Label: "ranked strategic moves",
+    tags: ["Healthcare", "Strategy", "AI", "Market Analysis"],
+    deckUrl: waystarDeckUrl,
+    imageSrc: "/images/projects/Waystar-Logo.png",
+    sections: [
+      {
+        title: "Context",
+        paragraphs: [
+          "Conducted a market-level strategic assessment of Waystar's position within the U.S. healthcare Revenue Cycle Management (RCM) market — a $23B space undergoing rapid structural disruption from AI, interoperability mandates, and payer consolidation.",
+        ],
+      },
+      {
+        title: "Approach",
+        paragraphs: [
+          "Analyzed the revenue integrity value chain across eight integrated stages — from patient access and prior authorization through CDI, autonomous coding, and denials management. Applied Porter's Five Forces at both market and stage level, built a strategic group map across eight competitors (including Epic, Optum, R1, and AKASA), and evaluated Waystar's right-to-win at each stage of the chain.",
+        ],
+      },
+      {
+        title: "Key Findings",
+        paragraphs: [
+          "Front-end stages (eligibility, prior auth) are commoditizing under AI automation pressure",
+          "Mid-cycle stages (CDI, prebill review) represent the highest-value expansion opportunity for players with clinical data access",
+          "Waystar's structurally inimitable position lies in a cross-organizational payer intelligence feedback loop — spanning CDI, prebill, denials, and prior auth — that no competitor can replicate at scale",
+        ],
+      },
+      {
+        title: "Deliverables",
+        paragraphs: [
+          "Produced an executive-style strategy deck including a full value chain map, Porter's Five Forces analysis, competitive capability map, Build/Buy/Partner evaluation matrix, and five ranked strategic recommendations scored against defensibility, addressability, achievability, time-to-value, and risk.",
+        ],
+      },
+      {
+        title: "Top Recommendation",
+        paragraphs: [
+          "Ship Denial Insights into PreBill in 1H 2026 and scale payer-calibrated prebill scoring as the primary moat mechanism — before Epic Payer Platform scales past 25 national payers, the window the analysis identifies as 2026–2028.",
+        ],
+      },
+    ],
   },
   {
     id: "retention",
@@ -35,6 +81,7 @@ const projects: Project[] = [
     metric2: "+34%",
     metric2Label: "feature adoption",
     tags: ["Retention", "Data Analytics", "Email"],
+    deckUrl: retentionDeckUrl,
   },
   {
     id: "search",
@@ -47,6 +94,7 @@ const projects: Project[] = [
     metric2: "−28%",
     metric2Label: "avg search time",
     tags: ["0 → 1", "Search", "Ranking"],
+    deckUrl: searchDeckUrl,
   },
 ];
 
