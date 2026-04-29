@@ -6,11 +6,11 @@ export function ContactSection() {
       <section className="contact-block" id="contact">
         <div className="contact-inner">
           <div className="contact-eyebrow">Contact</div>
-          <h2 className="contact-title">
-            Let&apos;s talk about <em>a role.</em>
-          </h2>
+          <h3 className="contact-title">
+            Let&apos;s talk about <em>AI & Product.</em>
+          </h3>
           <p className="contact-desc">
-            Open to PM roles at product-led growth companies. Happy to chat.
+            Happy to chat.
           </p>
           <div className="contact-actions">
             <a href={`mailto:${email}`} className="email-btn">
