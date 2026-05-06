@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { useState, useEffect } from "react";
 import { useSearchParams } from "next/navigation";
 import { Suspense } from "react";
@@ -11,6 +12,8 @@ function ProjectsContent() {
   const searchParams = useSearchParams();
   const queryId = searchParams.get("id");
   const [selectedId, setSelectedId] = useState(queryId || projects[0]?.id || "");
+  const [showArchModal, setShowArchModal] = useState(false);
+  const [showSeqModal, setShowSeqModal] = useState(false);
 
   useEffect(() => {
     if (queryId) {
@@ -79,26 +82,44 @@ function ProjectsContent() {
                 <h2 className="projects-content-title">
                   {selectedProject.title}
                 </h2>
-                {selectedProject.tryItUrl && (
-                  <a
-                    href={selectedProject.tryItUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="projects-try-btn"
-                  >
-                    Try it
-                    <svg
-                      width="12"
-                      height="12"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      stroke="currentColor"
-                      strokeWidth="2.5"
+                <div className="projects-content-actions">
+                  {selectedProject.tryItUrl && (
+                    <a
+                      href={selectedProject.tryItUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="projects-try-btn"
                     >
-                      <path d="M5 12h14M17 12l-4-4M17 12l-4 4" />
-                    </svg>
-                  </a>
-                )}
+                      Try it
+                      <svg
+                        width="12"
+                        height="12"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        strokeWidth="2.5"
+                      >
+                        <path d="M5 12h14M17 12l-4-4M17 12l-4 4" />
+                      </svg>
+                    </a>
+                  )}
+                  {selectedProject.architectureDiagram && (
+                    <button
+                      onClick={() => setShowArchModal(true)}
+                      className="projects-try-btn"
+                    >
+                      View Architecture
+                    </button>
+                  )}
+                  {selectedProject.sequenceDiagram && (
+                    <button
+                      onClick={() => setShowSeqModal(true)}
+                      className="projects-try-btn"
+                    >
+                      Sequence Diagram
+                    </button>
+                  )}
+                </div>
               </div>
 
               <p className="projects-content-desc">
@@ -145,6 +166,82 @@ function ProjectsContent() {
             </div>
           )}
         </main>
+      </div>
+
+      {selectedProject && showArchModal && selectedProject.architectureDiagram && (
+        <ArchitectureModal
+          projectTitle={selectedProject.title}
+          diagramUrl={selectedProject.architectureDiagram}
+          onClose={() => setShowArchModal(false)}
+        />
+      )}
+
+      {selectedProject && showSeqModal && selectedProject.sequenceDiagram && (
+        <SequenceDiagramModal
+          projectTitle={selectedProject.title}
+          diagramUrl={selectedProject.sequenceDiagram}
+          onClose={() => setShowSeqModal(false)}
+        />
+      )}
+    </>
+  );
+}
+
+function ArchitectureModal({
+  projectTitle,
+  diagramUrl,
+  onClose,
+}: {
+  projectTitle: string;
+  diagramUrl: string;
+  onClose: () => void;
+}) {
+  return (
+    <>
+      <div className="modalOverlay" onClick={onClose} />
+      <div className="modalContent">
+        <button className="modalClose" onClick={onClose}>
+          ✕
+        </button>
+        <h2 className="modalTitle">Architecture Diagram</h2>
+        <div className="modalImageContainer">
+          <Image
+            src={diagramUrl}
+            alt={`${projectTitle} architecture diagram`}
+            width={800}
+            height={600}
+          />
+        </div>
+      </div>
+    </>
+  );
+}
+
+function SequenceDiagramModal({
+  projectTitle,
+  diagramUrl,
+  onClose,
+}: {
+  projectTitle: string;
+  diagramUrl: string;
+  onClose: () => void;
+}) {
+  return (
+    <>
+      <div className="modalOverlay" onClick={onClose} />
+      <div className="modalContent">
+        <button className="modalClose" onClick={onClose}>
+          ✕
+        </button>
+        <h2 className="modalTitle">Sequence Diagram</h2>
+        <div className="modalImageContainer">
+          <Image
+            src={diagramUrl}
+            alt={`${projectTitle} sequence diagram`}
+            width={800}
+            height={600}
+          />
+        </div>
       </div>
     </>
   );
