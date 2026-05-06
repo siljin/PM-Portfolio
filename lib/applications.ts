@@ -3,6 +3,7 @@ import { priorAuthUrl, diabetesRiskUrl, mbaTechClubUrl } from "./global-variable
 export type ProjectSection = {
   title: string;
   paragraphs: string[];
+  diagramSrc?: string;
 };
 
 export type Project = {
@@ -18,6 +19,8 @@ export type Project = {
   tryItUrl: string;
   iconPath: string;
   sections: ProjectSection[];
+  architectureDiagram?: string;
+  sequenceDiagram?: string;
 };
 
 const projects: Project[] = [
@@ -122,6 +125,54 @@ const projects: Project[] = [
         title: "Outcome",
         paragraphs: [
           "Reduced prior auth submission time from 2–3 hours to 15–20 minutes per request. Improved first-pass approval rates by ensuring complete documentation. Created a reusable agent architecture that can be adapted for other insurance workflows.",
+        ],
+      },
+    ],
+  },
+  {
+    slug: "ai-ticket-triage",
+    id: "togetherwork-triage",
+    eyebrow: "P. 04",
+    title: "AI Ticket Triage System",
+    descriptor: "Automated support ticket classification and routing system using LLM-powered triage—reducing manual decision time from 5–10 minutes to under 2 seconds.",
+    tag: "Issue Triage · Zendesk Integration · Webhook · LLM Classification · API",
+    category: "AI Agent · Customer Support",
+    // highlight: "9 issue categories detected with 91% average confidence; 240x faster triage.",
+    coverSrc: "/images/applications/ticket-triage.svg",
+    tryItUrl: "#",
+    architectureDiagram: "/images/applications/ai-ticket-triage-flow.png",
+    sequenceDiagram: "/images/applications/ai-ticket-triage-sequence.png",
+    iconPath: "M3 12h4l2-5 3 10 2-6 2 4h4",
+    sections: [
+      {
+        title: "The Problem",
+        paragraphs: [
+          "Manual ticket triage is a bottleneck in customer support. Every inbound ticket requires a human agent to read, categorize, and route to the right team—averaging 5–10 minutes per ticket. With 9 products across 6 verticals, routing complexity compounds, and misrouted tickets take 2x longer to resolve.",
+        ],
+      },
+      {
+        title: "What I Built",
+        paragraphs: [
+          "Created an AI triage system that reads every incoming Zendesk ticket, classifies it across 9 issue categories, scores urgency with confidence tiers, and automatically routes to the right team in under 2 seconds. The architecture combines a Zendesk webhook (HTTP POST intake) → Express.js backend → Claude Sonnet LLM classifier → confidence-based routing engine → Zendesk writeback. Each ticket receives a private internal note with category, product, priority, sentiment, confidence label, reasoning, and optional draft response for agent review.",
+        ],
+      },
+      {
+        title: "Routing & Escalation Logic",
+        paragraphs: [
+          "The system implements a 3-tier confidence-based routing engine: High confidence (>0.80) auto-routes with draft response, Medium (0.50–0.80) routes with context note for agent review, and Low (<0.50) escalates to senior team for manual assessment. Escalation overrides ensure P1 priority, data loss, security, or legal-tagged tickets always route to senior team regardless of confidence score.",
+        ],
+      },
+      {
+        title: "How It Works",
+        paragraphs: [
+          "The system follows a 4-step processing pipeline: (1) Zendesk Webhook—incoming tickets arrive via HTTP POST; (2) LLM AI Classifier—the system classifies the ticket, scores confidence, and flags escalation risks; (3) Routing Engine—assigns severity tier and target team based on confidence thresholds; (4) Zendesk Writeback—updates the ticket metadata and appends a private internal note with reasoning and optional draft response.",
+        ],
+        diagramSrc: "/images/applications/ticket-triage-flow.svg",
+      },
+      {
+        title: "Business Impact",
+        paragraphs: [
+          "Reduced classification time from 5–10 minutes to under 2 seconds per ticket (240x faster). Eliminated human routing error through deterministic confidence-based logic. Improved agent efficiency by pre-drafting responses on high-confidence tickets. Built in feedback loops and accuracy tracking from day one—the system learns from agent overrides over time.",
         ],
       },
     ],
