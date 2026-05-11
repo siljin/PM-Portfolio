@@ -33,7 +33,7 @@ const projects: Project[] = [
     tag: "Agentic Workflow · RAG · MCP · Gemini",
     category: "AI Agent · Clinical",
     // highlight: "94% accuracy on test cohort; currently in clinical validation.",
-    coverSrc: "/images/applications/diabetes-diagnosis.svg",
+    coverSrc: "/images/projects/diabetes-diagnosis.svg",
     tryItUrl: diabetesRiskUrl,
     iconPath: "M3 12h4l2-5 3 10 2-6 2 4h4",
     sections: [
@@ -105,7 +105,7 @@ const projects: Project[] = [
     tag: "Agentic Workflow · RAG · MCP · OpenAI",
     category: "AI Agent · Healthcare",
     // highlight: "Deployed at 3 health systems, processing 2k+ requests/month.",
-    coverSrc: "/images/applications/prior-auth.svg",
+    coverSrc: "/images/projects/prior-auth.svg",
     tryItUrl: priorAuthUrl,
     iconPath: "M3 12h4l2-5 3 10 2-6 2 4h4",
     sections: [
@@ -138,7 +138,7 @@ const projects: Project[] = [
     tag: "Issue Triage · Zendesk Integration · Webhook · LLM Classification · API",
     category: "AI Agent · Customer Support",
     // highlight: "9 issue categories detected with 91% average confidence; 240x faster triage.",
-    coverSrc: "/images/applications/ticket-triage.svg",
+    coverSrc: "/images/projects/placeholder.svg",
     tryItUrl: "#",
     architectureDiagram: "/images/applications/ai-ticket-triage-flow.png",
     sequenceDiagram: "/images/applications/ai-ticket-triage-sequence.png",
@@ -167,7 +167,7 @@ const projects: Project[] = [
         paragraphs: [
           "The system follows a 4-step processing pipeline: (1) Zendesk Webhook—incoming tickets arrive via HTTP POST; (2) LLM AI Classifier—the system classifies the ticket, scores confidence, and flags escalation risks; (3) Routing Engine—assigns severity tier and target team based on confidence thresholds; (4) Zendesk Writeback—updates the ticket metadata and appends a private internal note with reasoning and optional draft response.",
         ],
-        diagramSrc: "/images/applications/ticket-triage-flow.svg",
+        diagramSrc: "/images/applications/ai-ticket-triage-flow.png",
       },
       {
         title: "Business Impact",
