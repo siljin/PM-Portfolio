@@ -3,6 +3,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
+import { DiagramModal } from "@/components/DiagramModal";
 import type { Project } from "@/lib/applications";
 
 export default function ClientDetail({ project }: { project: Project }) {
@@ -68,7 +69,8 @@ export default function ClientDetail({ project }: { project: Project }) {
       ))}
 
       {showArchModal && project.architectureDiagram && (
-        <ArchitectureModal
+        <DiagramModal
+          title="Architecture Diagram"
           projectTitle={project.title}
           diagramUrl={project.architectureDiagram}
           onClose={() => setShowArchModal(false)}
@@ -76,72 +78,13 @@ export default function ClientDetail({ project }: { project: Project }) {
       )}
 
       {showSeqModal && project.sequenceDiagram && (
-        <SequenceDiagramModal
+        <DiagramModal
+          title="Sequence Diagram"
           projectTitle={project.title}
           diagramUrl={project.sequenceDiagram}
           onClose={() => setShowSeqModal(false)}
         />
       )}
     </article>
-  );
-}
-
-function ArchitectureModal({
-  projectTitle,
-  diagramUrl,
-  onClose,
-}: {
-  projectTitle: string;
-  diagramUrl: string;
-  onClose: () => void;
-}) {
-  return (
-    <>
-      <div className="modalOverlay" onClick={onClose} />
-      <div className="modalContent">
-        <button className="modalClose" onClick={onClose}>
-          ✕
-        </button>
-        <h2 className="modalTitle">Architecture Diagram</h2>
-        <div className="modalImageContainer">
-          <Image
-            src={diagramUrl}
-            alt={`${projectTitle} architecture diagram`}
-            width={800}
-            height={600}
-          />
-        </div>
-      </div>
-    </>
-  );
-}
-
-function SequenceDiagramModal({
-  projectTitle,
-  diagramUrl,
-  onClose,
-}: {
-  projectTitle: string;
-  diagramUrl: string;
-  onClose: () => void;
-}) {
-  return (
-    <>
-      <div className="modalOverlay" onClick={onClose} />
-      <div className="modalContent">
-        <button className="modalClose" onClick={onClose}>
-          ✕
-        </button>
-        <h2 className="modalTitle">Sequence Diagram</h2>
-        <div className="modalImageContainer">
-          <Image
-            src={diagramUrl}
-            alt={`${projectTitle} sequence diagram`}
-            width={800}
-            height={600}
-          />
-        </div>
-      </div>
-    </>
   );
 }

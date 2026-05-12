@@ -1,13 +1,15 @@
 "use client";
 
 import Link from "next/link";
-import { useState, useEffect } from "react";
+import { Suspense, useEffect, useState } from "react";
 import { useSearchParams } from "next/navigation";
-import { Suspense } from "react";
-import { getProjects } from "@/lib/projects";
+import type { Project } from "@/lib/projects";
 
-function ProjectsContent() {
-  const cases = getProjects();
+type ProjectsArchiveClientProps = {
+  cases: Project[];
+};
+
+function ProjectsArchiveContent({ cases }: ProjectsArchiveClientProps) {
   const searchParams = useSearchParams();
   const queryId = searchParams.get("id");
   const [selectedId, setSelectedId] = useState(queryId || cases[0]?.id || "");
@@ -50,7 +52,6 @@ function ProjectsContent() {
           isSidebarExpanded ? "is-expanded" : ""
         }`}
       >
-        {/* SIDEBAR */}
         <aside className="projects-sidebar">
           <div className="projects-sidebar-header">
             <button
@@ -94,14 +95,11 @@ function ProjectsContent() {
           </ul>
         </aside>
 
-        {/* CONTENT */}
         <main className="projects-content">
           {selectedCase ? (
             <>
               <div className="projects-content-header">
-                <h2 className="projects-content-title">
-                  {selectedCase.title}
-                </h2>
+                <h2 className="projects-content-title">{selectedCase.title}</h2>
                 {selectedCase.deckUrl && (
                   <a
                     href={selectedCase.deckUrl}
@@ -124,9 +122,7 @@ function ProjectsContent() {
                 )}
               </div>
 
-              <p className="projects-content-desc">
-                {selectedCase.desc}
-              </p>
+              <p className="projects-content-desc">{selectedCase.desc}</p>
 
               <div className="projects-content-tags">
                 {selectedCase.tags.map((tag) => (
@@ -139,11 +135,15 @@ function ProjectsContent() {
               <div className="projects-content-metrics">
                 <div className="projects-metric-block">
                   <div className="projects-metric-value">{selectedCase.metric1}</div>
-                  <div className="projects-metric-label">{selectedCase.metric1Label}</div>
+                  <div className="projects-metric-label">
+                    {selectedCase.metric1Label}
+                  </div>
                 </div>
                 <div className="projects-metric-block">
                   <div className="projects-metric-value">{selectedCase.metric2}</div>
-                  <div className="projects-metric-label">{selectedCase.metric2Label}</div>
+                  <div className="projects-metric-label">
+                    {selectedCase.metric2Label}
+                  </div>
                 </div>
               </div>
 
@@ -161,8 +161,6 @@ function ProjectsContent() {
                   ))}
                 </div>
               )}
-
-
             </>
           ) : (
             <div className="projects-content-header">
@@ -176,10 +174,10 @@ function ProjectsContent() {
   );
 }
 
-export default function Page() {
+export function ProjectsArchiveClient({ cases }: ProjectsArchiveClientProps) {
   return (
     <Suspense fallback={<div>Loading...</div>}>
-      <ProjectsContent />
+      <ProjectsArchiveContent cases={cases} />
     </Suspense>
   );
 }
