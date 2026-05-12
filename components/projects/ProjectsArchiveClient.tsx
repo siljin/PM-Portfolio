@@ -12,14 +12,12 @@ type ProjectsArchiveClientProps = {
 function ProjectsArchiveContent({ cases }: ProjectsArchiveClientProps) {
   const searchParams = useSearchParams();
   const queryId = searchParams.get("id");
-  const [selectedId, setSelectedId] = useState(queryId || cases[0]?.id || "");
+  const [selectedId, setSelectedId] = useState(() => cases[0]?.id || "");
   const [isSidebarExpanded, setIsSidebarExpanded] = useState(false);
 
   useEffect(() => {
-    if (queryId) {
-      setSelectedId(queryId);
-    }
-  }, [queryId]);
+    setSelectedId(queryId || cases[0]?.id || "");
+  }, [queryId, cases]);
 
   const selectedCase = cases.find((c) => c.id === selectedId);
 

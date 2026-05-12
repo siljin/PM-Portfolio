@@ -1,14 +1,11 @@
 import {
   applicationsSchema,
-  demosSchema,
   portfolioProjectsSchema,
   type ApplicationContent,
-  type DemoContent,
   type PortfolioProjectContent,
 } from "./schemas";
 import applicationsJson from "@/content/applications/applications.json";
 import projectsJson from "@/content/projects/projects.json";
-import demosJson from "@/content/demos/demos.json";
 
 type WithIdentity = {
   id?: string;
@@ -48,9 +45,4 @@ export function loadApplications(): ApplicationContent[] {
 export function loadPortfolioProjects(): PortfolioProjectContent[] {
   const data = portfolioProjectsSchema.parse(projectsJson);
   return withIntegrityChecks(data, "content/projects/projects.json");
-}
-
-export function loadDemos(): DemoContent[] {
-  const data = demosSchema.parse(demosJson);
-  return withIntegrityChecks(data, "content/demos/demos.json");
 }

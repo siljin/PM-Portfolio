@@ -2,8 +2,8 @@ import Link from "next/link";
 import { getProjects } from "@/lib/applications";
 import { ApplicationCard } from "./ApplicationCard";
 
-export function ApplicationGrid() {
-  const allProjects = getProjects();
+export async function ApplicationGrid() {
+  const allProjects = await getProjects();
   const projects = allProjects.slice(0, 2);
 
   return (

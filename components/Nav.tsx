@@ -1,13 +1,9 @@
-"use client";
-
 import Link from "next/link";
-import {
-  nav_status_text,
-  resume_url,
-  show_nav_status,
-} from "@/lib/global-variables";
+import { getSiteSettings } from "@/lib/site-settings";
 
-export function Nav() {
+export async function Nav() {
+  const siteSettings = await getSiteSettings();
+
   return (
     <nav>
       <div className="nav-inner">
@@ -15,17 +11,17 @@ export function Nav() {
           Siljin Sebastian<span className="dot">.</span>
         </Link>
         <div className="nav-links">
-          {show_nav_status && (
+          {siteSettings.showNavStatus && (
             <span className="nav-status">
               <span className="pulse"></span>
-              {nav_status_text}
+              {siteSettings.navStatusText}
             </span>
           )}
           <Link href="/applications">Applications</Link>
           <Link href="/projects">Projects</Link>
           {/* <a href="#about">About</a> */}
           <a href="#contact">Contact</a>
-          <a href={resume_url} className="nav-resume" target="_blank" rel="noopener noreferrer">
+          <a href={siteSettings.resumeUrl} className="nav-resume" target="_blank" rel="noopener noreferrer">
             Resume
             <svg
               width="12"

@@ -1,8 +1,8 @@
 import Image from "next/image";
 import { getProjects } from "@/lib/projects";
 
-export function Projects() {
-  const allProjects = getProjects();
+export async function Projects() {
+  const allProjects = await getProjects();
   const cases = allProjects.slice(0, 2).map((project) => ({
     id: project.id,
     title: project.title,

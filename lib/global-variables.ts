@@ -16,6 +16,13 @@ export const resume_url = "https://drive.google.com/file/d/1LX175lj78ZXR3jjjPOFQ
 export const show_nav_status = false;
 export const nav_status_text = "Open to internships - 2026";
 
+/** Runtime settings fallbacks (used when Sanity is unavailable). */
+export const defaultSiteSettings = {
+  showNavStatus: show_nav_status,
+  navStatusText: nav_status_text,
+  resumeUrl: resume_url,
+} as const;
+
 /** Application demo URLs */
 export const priorAuthUrl = "https://udify.app/workflow/Nd1XsLQUc9O6QoVp";
 export const diabetesRiskUrl = "https://udify.app/workflow/A32PxMNwfQoqZrxN";

@@ -50,17 +50,12 @@ export const portfolioProjectSchema = z.object({
 
 export const portfolioProjectsSchema = z.array(portfolioProjectSchema);
 
-export const demoSchema = z.object({
-  slug: z.string().min(1),
-  title: z.string().min(1),
-  buildNote: z.string().min(1),
-  href: z.string().min(1),
-  coverSrc: imagePath,
-  tag: z.string().min(1).optional(),
+export const siteSettingsSchema = z.object({
+  showNavStatus: z.boolean().optional(),
+  navStatusText: z.string().min(1).optional(),
+  resumeUrl: z.string().url().optional(),
 });
-
-export const demosSchema = z.array(demoSchema);
 
 export type ApplicationContent = z.infer<typeof applicationSchema>;
 export type PortfolioProjectContent = z.infer<typeof portfolioProjectSchema>;
-export type DemoContent = z.infer<typeof demoSchema>;
+export type SiteSettingsContent = z.infer<typeof siteSettingsSchema>;

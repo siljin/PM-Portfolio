@@ -2,6 +2,8 @@
 
 Single-page portfolio for a Product Manager, built with **Next.js 15** (App Router), **Geist** typography, and validated JSON content under `content/`.
 
+The app supports a **Sanity-first runtime content layer** with local JSON fallback.
+
 ## Development
 
 ```bash
@@ -47,7 +49,7 @@ Content now lives in JSON files:
 
 - [`content/applications/applications.json`](content/applications/applications.json)
 - [`content/projects/projects.json`](content/projects/projects.json)
-- [`content/demos/demos.json`](content/demos/demos.json)
+- [`content/demos/demos.json`](content/demos/demos.json) — seed data for `npm run sanity:generate-import` only (not rendered in the app)
 
 Validation and loading are centralized in:
 
@@ -58,7 +60,6 @@ Adapter modules (`lib/*.ts`) expose stable getters used by pages/components:
 
 - [`lib/applications.ts`](lib/applications.ts)
 - [`lib/projects.ts`](lib/projects.ts)
-- [`lib/demos.ts`](lib/demos.ts)
 
 ### Required field conventions
 
@@ -75,6 +76,40 @@ Adapter modules (`lib/*.ts`) expose stable getters used by pages/components:
 
 If JSON is malformed or fields are invalid, the build fails with content validation errors from the loaders/schemas layer.
 
+## Sanity integration (optional, recommended)
+
+When Sanity env variables are configured, the app reads content from Sanity first and falls back to local JSON if Sanity is unavailable.
+
+### Environment
+
+Create `.env.local` from `.env.example`:
+
+```bash
+cp .env.example .env.local
+```
+
+Set:
+
+- `SANITY_PROJECT_ID`
+- `SANITY_DATASET`
+- `SANITY_API_VERSION`
+
+For **private / read-restricted** datasets (recommended), also set:
+
+- `SANITY_READ_TOKEN` (read-only token from Sanity Manage)
+
+### Generate import payload
+
+```bash
+npm run sanity:generate-import
+```
+
+Generates NDJSON files under `import/sanity/` (gitignored).
+
+### Sanity + Studio
+
+Sanity Studio lives in a **separate repo**. This app only reads the API. See [`docs/SANITY.md`](docs/SANITY.md) for env vars, import commands, and how to keep schemas aligned with Studio.
+
 ## Structure
 
 - [`app/page.tsx`](app/page.tsx) — home sections
@@ -83,7 +118,9 @@ If JSON is malformed or fields are invalid, the build fails with content validat
 - [`components/`](components/) — UI sections and client motion (`Hero` spotlight, `Reveal` on scroll)
 - [`content/`](content/) — editable JSON content
 - [`lib/content/`](lib/content/) — validation schemas and JSON loaders
-- [`lib/projects.ts`](lib/projects.ts), [`lib/applications.ts`](lib/applications.ts), [`lib/demos.ts`](lib/demos.ts), [`lib/skills.ts`](lib/skills.ts) — data adapters
+- [`lib/projects.ts`](lib/projects.ts), [`lib/applications.ts`](lib/applications.ts), [`lib/skills.ts`](lib/skills.ts) — data adapters
+- [`lib/sanity/`](lib/sanity/) — Sanity client and typed queries
+- [`lib/site-settings.ts`](lib/site-settings.ts) — runtime site settings (badge + resume URL)
 
 ## License
 

@@ -1,8 +1,9 @@
-"use client";
+import { heroParagraph } from "@/lib/global-variables";
+import { getSiteSettings } from "@/lib/site-settings";
 
-import { resume_url, heroParagraph } from "@/lib/global-variables";
+export async function Hero() {
+  const siteSettings = await getSiteSettings();
 
-export function Hero() {
   return (
     <div className="hero-frame">
       <div className="hero-card">
@@ -26,7 +27,7 @@ export function Hero() {
                 <path d="M12 5v14M5 13l7 7 7-7" />
               </svg>
             </a>
-            <a href={resume_url} className="btn btn-ghost" target="_blank" rel="noopener noreferrer">
+            <a href={siteSettings.resumeUrl} className="btn btn-ghost" target="_blank" rel="noopener noreferrer">
               View Resume
               <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
                 <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3" />
