@@ -5,7 +5,7 @@ const imagePath = z.string().regex(/^\/images\//, "must start with /images/");
 export const applicationSectionSchema = z.object({
   title: z.string().min(1),
   paragraphs: z.array(z.string().min(1)).min(1),
-  diagramSrc: imagePath.optional(),
+  diagramSrc: imagePath.nullish(),
 });
 
 export const applicationSchema = z.object({
@@ -15,14 +15,14 @@ export const applicationSchema = z.object({
   title: z.string().min(1),
   descriptor: z.string().min(1),
   tag: z.string().min(1),
-  category: z.string().min(1).optional(),
-  highlight: z.string().min(1).optional(),
+  category: z.string().min(1).nullish(),
+  highlight: z.string().min(1).nullish(),
   coverSrc: imagePath,
   tryItUrl: z.string().min(1),
   iconPath: z.string().min(1),
   sections: z.array(applicationSectionSchema).min(1),
-  architectureDiagram: imagePath.optional(),
-  sequenceDiagram: imagePath.optional(),
+  architectureDiagram: imagePath.nullish(),
+  sequenceDiagram: imagePath.nullish(),
 });
 
 export const applicationsSchema = z.array(applicationSchema);
@@ -45,7 +45,7 @@ export const portfolioProjectSchema = z.object({
   tags: z.array(z.string().min(1)).min(1),
   deckUrl: z.string().min(1),
   sections: z.array(portfolioSectionSchema).optional(),
-  imageSrc: imagePath.optional(),
+  imageSrc: imagePath.nullish(),
 });
 
 export const portfolioProjectsSchema = z.array(portfolioProjectSchema);

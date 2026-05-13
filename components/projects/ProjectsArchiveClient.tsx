@@ -20,6 +20,7 @@ function ProjectsArchiveContent({ cases }: ProjectsArchiveClientProps) {
   }, [queryId, cases]);
 
   const selectedCase = cases.find((c) => c.id === selectedId);
+  const isEmpty = cases.length === 0;
 
   return (
     <>
@@ -68,33 +69,46 @@ function ProjectsArchiveContent({ cases }: ProjectsArchiveClientProps) {
             <h1 className="projects-sidebar-title">Case Studies</h1>
             <p className="projects-sidebar-subtitle">Select to explore</p>
           </div>
-          <ul className="projects-list" id="projects-sidebar-list">
-            {cases.map((caseItem, index) => (
-              <li key={caseItem.id} className="projects-item">
-                <button
-                  className={`projects-btn ${
-                    selectedId === caseItem.id ? "active" : ""
-                  }`}
-                  onClick={() => setSelectedId(caseItem.id)}
-                  aria-label={caseItem.title}
-                >
-                  <span className="projects-btn-icon" aria-hidden="true">
-                    {String(index + 1).padStart(2, "0")}
-                  </span>
-                  <span className="projects-btn-tooltip" aria-hidden="true">
-                    {caseItem.title}
-                  </span>
-                  <span className="projects-btn-copy">
-                    <span className="projects-btn-title">{caseItem.title}</span>
-                  </span>
-                </button>
-              </li>
-            ))}
-          </ul>
+          {isEmpty ? (
+            <div className="projects-sidebar-subtitle">
+              Content temporarily unavailable
+            </div>
+          ) : (
+            <ul className="projects-list" id="projects-sidebar-list">
+              {cases.map((caseItem, index) => (
+                <li key={caseItem.id} className="projects-item">
+                  <button
+                    className={`projects-btn ${
+                      selectedId === caseItem.id ? "active" : ""
+                    }`}
+                    onClick={() => setSelectedId(caseItem.id)}
+                    aria-label={caseItem.title}
+                  >
+                    <span className="projects-btn-icon" aria-hidden="true">
+                      {String(index + 1).padStart(2, "0")}
+                    </span>
+                    <span className="projects-btn-tooltip" aria-hidden="true">
+                      {caseItem.title}
+                    </span>
+                    <span className="projects-btn-copy">
+                      <span className="projects-btn-title">{caseItem.title}</span>
+                    </span>
+                  </button>
+                </li>
+              ))}
+            </ul>
+          )}
         </aside>
 
         <main className="projects-content">
-          {selectedCase ? (
+          {isEmpty ? (
+            <div className="projects-content-header">
+              <div className="projects-content-eyebrow">Content unavailable</div>
+              <h2 className="projects-content-title">
+                Projects are temporarily unavailable
+              </h2>
+            </div>
+          ) : selectedCase ? (
             <>
               <div className="projects-content-header">
                 <h2 className="projects-content-title">{selectedCase.title}</h2>

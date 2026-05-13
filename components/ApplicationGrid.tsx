@@ -4,6 +4,23 @@ import { ApplicationCard } from "./ApplicationCard";
 
 export async function ApplicationGrid() {
   const allProjects = await getProjects();
+  if (allProjects.length === 0) {
+    return (
+      <div className="applications-band">
+        <div className="container">
+          <section className="block" id="applications">
+            <div className="section-head">
+              <div className="eyebrow">Builder</div>
+              <h2 className="section-title">AI <em>applications.</em></h2>
+              <p className="section-desc">
+                Applications are temporarily unavailable. Please check back soon.
+              </p>
+            </div>
+          </section>
+        </div>
+      </div>
+    );
+  }
   const projects = allProjects.slice(0, 2);
 
   return (

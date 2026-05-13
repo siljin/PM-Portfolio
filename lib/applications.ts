@@ -1,5 +1,4 @@
 import type { ApplicationContent } from "./content/schemas";
-import { loadApplications } from "./content/loaders";
 import { isSanityConfigured } from "./sanity/client";
 import { fetchSanityApplications } from "./sanity/queries";
 import { warnSanityFallback } from "./sanity/warn-fallback";
@@ -8,16 +7,17 @@ export type ProjectSection = ApplicationContent["sections"][number];
 export type Project = ApplicationContent;
 
 export async function getProjects(): Promise<Project[]> {
-  if (isSanityConfigured()) {
-    try {
-      const fromSanity = await fetchSanityApplications();
-      if (fromSanity.length > 0) return fromSanity;
-    } catch (error) {
-      warnSanityFallback("applications", error);
-    }
+  if (!isSanityConfigured()) {
+    warnSanityFallback("applications");
+    return [];
   }
 
-  return loadApplications();
+  try {
+    return await fetchSanityApplications();
+  } catch (error) {
+    warnSanityFallback("applications", error);
+    return [];
+  }
 }
 
 export async function getProjectSlugs(): Promise<string[]> {

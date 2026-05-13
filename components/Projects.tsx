@@ -3,6 +3,21 @@ import { getProjects } from "@/lib/projects";
 
 export async function Projects() {
   const allProjects = await getProjects();
+  if (allProjects.length === 0) {
+    return (
+      <div className="container">
+        <section className="block" id="projects">
+          <div className="section-head">
+            <div className="eyebrow">Work</div>
+            <h2 className="section-title">Research & <em>Projects.</em></h2>
+            <p className="section-desc">
+              Project content is temporarily unavailable. Please check back soon.
+            </p>
+          </div>
+        </section>
+      </div>
+    );
+  }
   const cases = allProjects.slice(0, 2).map((project) => ({
     id: project.id,
     title: project.title,

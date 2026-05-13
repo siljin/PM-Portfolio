@@ -1,8 +1,6 @@
 # PM Portfolio
 
-Single-page portfolio for a Product Manager, built with **Next.js 15** (App Router), **Geist** typography, and validated JSON content under `content/`.
-
-The app supports a **Sanity-first runtime content layer** with local JSON fallback.
+Single-page portfolio for a Product Manager, built with **Next.js 15** (App Router), **Geist** typography, and a **Sanity-only** runtime content layer.
 
 ## Development
 
@@ -43,42 +41,20 @@ Any static host (S3, GitHub Pages, etc.) can upload the contents of **`out/`** a
 
 You can also deploy to [Vercel](https://vercel.com) with the same repo; Vercel runs `next build` and does not require the `out/` folder when using their Next.js runtime (this project is optimized for Netlify static publish via `out/`).
 
-## Content editing workflow
+## Content workflow (Sanity-only)
 
-Content now lives in JSON files:
+Runtime content is loaded only from Sanity:
 
-- [`content/applications/applications.json`](content/applications/applications.json)
-- [`content/projects/projects.json`](content/projects/projects.json)
-- [`content/demos/demos.json`](content/demos/demos.json) — seed data for `npm run sanity:generate-import` only (not rendered in the app)
-
-Validation and loading are centralized in:
-
-- [`lib/content/schemas.ts`](lib/content/schemas.ts)
-- [`lib/content/loaders.ts`](lib/content/loaders.ts)
-
-Adapter modules (`lib/*.ts`) expose stable getters used by pages/components:
-
+- [`lib/sanity/client.ts`](lib/sanity/client.ts)
+- [`lib/sanity/queries.ts`](lib/sanity/queries.ts)
 - [`lib/applications.ts`](lib/applications.ts)
 - [`lib/projects.ts`](lib/projects.ts)
 
-### Required field conventions
+Validation is enforced by Zod schemas in [`lib/content/schemas.ts`](lib/content/schemas.ts).
 
-- Keep `id` and `slug` unique within each dataset.
-- Image paths must start with `/images/` (schema-enforced).
-- Preserve existing field names used by UI (for example `coverSrc`, `sections`, `tag`, `descriptor`).
+If Sanity is unavailable or returns invalid data, the app renders safe empty states (instead of local JSON fallback).
 
-### Add or edit an application safely
-
-1. Update [`content/applications/applications.json`](content/applications/applications.json).
-2. Add/verify assets under [`public/images/`](public/images/).
-3. Run `npm run build` to validate schemas and static route generation.
-4. Run `npm run lint` to confirm no new lint issues.
-
-If JSON is malformed or fields are invalid, the build fails with content validation errors from the loaders/schemas layer.
-
-## Sanity integration (optional, recommended)
-
-When Sanity env variables are configured, the app reads content from Sanity first and falls back to local JSON if Sanity is unavailable.
+## Sanity integration
 
 ### Environment
 
@@ -98,17 +74,9 @@ For **private / read-restricted** datasets (recommended), also set:
 
 - `SANITY_READ_TOKEN` (read-only token from Sanity Manage)
 
-### Generate import payload
-
-```bash
-npm run sanity:generate-import
-```
-
-Generates NDJSON files under `import/sanity/` (gitignored).
-
 ### Sanity + Studio
 
-Sanity Studio lives in a **separate repo**. This app only reads the API. See [`docs/SANITY.md`](docs/SANITY.md) for env vars, import commands, and how to keep schemas aligned with Studio.
+Sanity Studio lives in a **separate repo**. This app only reads the API. See [`docs/SANITY.md`](docs/SANITY.md) for env vars, outage handling, and schema/query alignment rules.
 
 ## Structure
 
@@ -116,8 +84,7 @@ Sanity Studio lives in a **separate repo**. This app only reads the API. See [`d
 - [`app/applications/page.tsx`](app/applications/page.tsx), [`app/applications/[slug]/page.tsx`](app/applications/[slug]/page.tsx) — applications views
 - [`app/projects/page.tsx`](app/projects/page.tsx) — case-study archive
 - [`components/`](components/) — UI sections and client motion (`Hero` spotlight, `Reveal` on scroll)
-- [`content/`](content/) — editable JSON content
-- [`lib/content/`](lib/content/) — validation schemas and JSON loaders
+- [`lib/content/`](lib/content/) — validation schemas
 - [`lib/projects.ts`](lib/projects.ts), [`lib/applications.ts`](lib/applications.ts), [`lib/skills.ts`](lib/skills.ts) — data adapters
 - [`lib/sanity/`](lib/sanity/) — Sanity client and typed queries
 - [`lib/site-settings.ts`](lib/site-settings.ts) — runtime site settings (badge + resume URL)

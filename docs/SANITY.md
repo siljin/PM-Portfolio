@@ -1,6 +1,6 @@
 # Sanity and this repo
 
-**Sanity Studio lives in a separate repository.** This app only needs runtime reads plus a small import helper.
+**Sanity Studio lives in a separate repository.** This app is Sanity-only at runtime and does not maintain local JSON fallback data.
 
 ## What lives here
 
@@ -8,30 +8,18 @@
 |------|---------|
 | `lib/sanity/client.ts` | Sanity API client (env + optional read token). |
 | `lib/sanity/queries.ts` | GROQ queries and Zod parsing for API responses. |
-| `lib/sanity/warn-fallback.ts` | Shared log when Sanity fails and JSON fallback runs. |
+| `lib/sanity/warn-fallback.ts` | Shared log when Sanity fails; app serves empty states. |
 | `lib/content/schemas.ts` | **Keep in sync** with document fields in your Studio repo. |
-| `scripts/generate-sanity-import.mjs` | Builds NDJSON from `content/*.json` for `sanity dataset import`. |
 
 ## Environment
 
 Copy `.env.example` → `.env.local` and set `SANITY_PROJECT_ID`, `SANITY_DATASET`, `SANITY_API_VERSION`. For private datasets, set `SANITY_READ_TOKEN` (read-only).
 
-## Import workflow (from this repo)
+## Outage behavior
 
-```bash
-npm run sanity:generate-import
-```
-
-Writes **gitignored** files under `import/sanity/*.ndjson`. Import from your machine (Studio repo or any folder with Sanity CLI logged in):
-
-```bash
-npx sanity@latest dataset import import/sanity/applications.ndjson production --replace
-npx sanity@latest dataset import import/sanity/projects.ndjson production --replace
-npx sanity@latest dataset import import/sanity/demos.ndjson production --replace
-npx sanity@latest dataset import import/sanity/site-settings.ndjson production --replace
-```
-
-Use `--project <id>` if the CLI targets the wrong project.
+- If Sanity is misconfigured or unavailable, app routes render graceful empty states.
+- Runtime no longer falls back to local JSON content.
+- Warnings are logged through `lib/sanity/warn-fallback.ts`.
 
 ## Maintenance rule
 

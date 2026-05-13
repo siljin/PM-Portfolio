@@ -1,4 +1,14 @@
-/** Single place for Sanity→JSON fallback logging (avoid duplicated strings). */
-export function warnSanityFallback(resource: string, error: unknown) {
-  console.warn(`Sanity read failed for ${resource}, using local fallback.`, error);
+/** Single place for Sanity read failure logging. */
+export function warnSanityFallback(resource: string, error?: unknown) {
+  if (error) {
+    console.warn(
+      `Sanity read failed for ${resource}; serving an empty state.`,
+      error
+    );
+    return;
+  }
+
+  console.warn(
+    `Sanity is not configured for ${resource}; serving an empty state.`
+  );
 }

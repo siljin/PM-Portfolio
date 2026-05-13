@@ -26,6 +26,7 @@ function ApplicationsArchiveContent({
   }, [queryId, projects]);
 
   const selectedProject = projects.find((p) => p.id === selectedId);
+  const isEmpty = projects.length === 0;
 
   return (
     <>
@@ -47,15 +48,26 @@ function ApplicationsArchiveContent({
             setShowSeqModal(false);
           }}
         />
-        <ApplicationDetailPanel
-          project={selectedProject}
-          showArchModal={showArchModal}
-          showSeqModal={showSeqModal}
-          onOpenArchitecture={() => setShowArchModal(true)}
-          onOpenSequence={() => setShowSeqModal(true)}
-          onCloseArchitecture={() => setShowArchModal(false)}
-          onCloseSequence={() => setShowSeqModal(false)}
-        />
+        {isEmpty ? (
+          <main className="projects-content">
+            <div className="projects-content-header">
+              <div className="projects-content-eyebrow">Content unavailable</div>
+              <h2 className="projects-content-title">
+                Applications are temporarily unavailable
+              </h2>
+            </div>
+          </main>
+        ) : (
+          <ApplicationDetailPanel
+            project={selectedProject}
+            showArchModal={showArchModal}
+            showSeqModal={showSeqModal}
+            onOpenArchitecture={() => setShowArchModal(true)}
+            onOpenSequence={() => setShowSeqModal(true)}
+            onCloseArchitecture={() => setShowArchModal(false)}
+            onCloseSequence={() => setShowSeqModal(false)}
+          />
+        )}
       </div>
     </>
   );

@@ -6,8 +6,7 @@
     "dev": "next dev --turbopack",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint",
-    "sanity:generate-import": "node scripts/generate-sanity-import.mjs"
+    "lint": "next lint"
   },
   "dependencies": {
     "@sanity/client": "^7.22.0",
