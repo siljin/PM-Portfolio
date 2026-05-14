@@ -1,0 +1,24 @@
+---
+description: PM Portfolio stack, content workflow, and scope boundaries
+alwaysApply: true
+---
+
+# PM Portfolio
+
+Next.js 15 App Router, static export (`output: "export"` in `next.config.ts`). Build output goes to `out/`; Netlify publishes `out/` per `netlify.toml`.
+
+## Content
+
+Authoritative data is **JSON under `content/`**, validated with Zod in `lib/content/schemas.ts` and loaded via `lib/content/loaders.ts`. Adapters: `lib/applications.ts`, `lib/projects.ts`, `lib/demos.ts`. Images live under `public/images/`; paths in JSON must start with `/images/`.
+
+Do **not** introduce Sanity or another headless CMS unless the product owner explicitly asks; this site is file-based content only.
+
+## Commands
+
+- Dev: `npm run dev` (Turbopack)
+- Validate + export: `npm run build`
+- Lint: `npm run lint`
+
+## Change discipline
+
+Match existing patterns in `app/`, `components/`, and `lib/`. Keep edits scoped; avoid unrelated refactors.
