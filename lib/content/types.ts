@@ -15,6 +15,8 @@ export type ApplicationContent = {
   tag: string;
   category?: string;
   highlight?: string;
+  metric: string;
+  metricLabel: string;
   coverSrc: string;
   tryItUrl: string;
   iconPath: string;

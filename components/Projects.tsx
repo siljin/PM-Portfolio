@@ -1,24 +1,12 @@
 import { getProjects } from "@/lib/projects";
 import { getSite } from "@/lib/site";
-import {
-  ProjectsHomeCarousel,
-  type HomeProjectCase,
-} from "@/components/ProjectsHomeCarousel";
+import { HomeCarousel } from "@/components/HomeCarousel";
+import { HomeCard } from "@/components/HomeCard";
 
 export function Projects() {
   const allProjects = getProjects();
   const { home, labels } = getSite();
   const s = home.projectsSection;
-
-  const cases: HomeProjectCase[] = allProjects.map((project) => ({
-    id: project.id,
-    title: project.title,
-    description: project.desc,
-    tags: project.tags,
-    metric: project.metric1,
-    metricLabel: project.metric1Label,
-    imageSrc: project.imageSrc,
-  }));
 
   return (
     <div className="container">
@@ -32,13 +20,26 @@ export function Projects() {
           <p className="section-desc">{s.description}</p>
         </div>
 
-        <ProjectsHomeCarousel
-          cases={cases}
-          readLabel={labels.read}
-          imagePlaceholder={labels.projectImagePlaceholder}
+        <HomeCarousel
+          itemCount={allProjects.length}
           carouselPrevious={labels.projectsCarouselPrevious}
           carouselNext={labels.projectsCarouselNext}
-        />
+        >
+          {allProjects.map((project) => (
+            <HomeCard
+              key={project.id}
+              imageSrc={project.imageSrc}
+              imagePlaceholder={labels.projectImagePlaceholder}
+              tags={project.tags}
+              title={project.title}
+              description={project.desc}
+              metric={project.metric1}
+              metricLabel={project.metric1Label}
+              readHref={`/projects?id=${project.id}`}
+              readLabel={labels.read}
+            />
+          ))}
+        </HomeCarousel>
       </section>
     </div>
   );

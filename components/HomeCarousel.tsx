@@ -1,8 +1,8 @@
 "use client";
 
-import Image from "next/image";
-import type { CSSProperties } from "react";
+import type { CSSProperties, ReactNode } from "react";
 import {
+  Children,
   useCallback,
   useEffect,
   useLayoutEffect,
@@ -16,22 +16,11 @@ const GAP_FALLBACK = 34;
 /** Matches `.project-card--home-strip:hover { transform: scale(1.02) }`. */
 const HOVER_SCALE = 1.02;
 
-export type HomeProjectCase = {
-  id: string;
-  title: string;
-  description: string;
-  tags: string[];
-  metric: string;
-  metricLabel: string;
-  imageSrc?: string;
-};
-
-type ProjectsHomeCarouselProps = {
-  cases: HomeProjectCase[];
-  readLabel: string;
-  imagePlaceholder: string;
+type HomeCarouselProps = {
+  itemCount: number;
   carouselPrevious: string;
   carouselNext: string;
+  children: ReactNode;
 };
 
 function slotsForViewport(innerWidth: number): number {
@@ -52,13 +41,14 @@ function targetScrollLeftToAlignCard(
   return Math.round(scrollEl.scrollLeft + delta);
 }
 
-export function ProjectsHomeCarousel({
-  cases,
-  readLabel,
-  imagePlaceholder,
+export function HomeCarousel({
+  itemCount,
   carouselPrevious,
   carouselNext,
-}: ProjectsHomeCarouselProps) {
+  children,
+}: HomeCarouselProps) {
+  const N = itemCount > 0 ? itemCount : Children.count(children);
+
   const scrollRef = useRef<HTMLDivElement>(null);
   const trackRef = useRef<HTMLDivElement>(null);
   const pageTargetsRef = useRef<number[]>([]);
@@ -76,7 +66,6 @@ export function ProjectsHomeCarousel({
   const [canPrev, setCanPrev] = useState(false);
   const [canNext, setCanNext] = useState(false);
 
-  const N = cases.length;
   const pageCount = Math.max(1, Math.ceil(N / Math.max(1, slots)));
   const lastPageIndex = pageCount - 1;
 
@@ -127,7 +116,7 @@ export function ProjectsHomeCarousel({
       ? parseFloat(trackStyle.columnGap || trackStyle.gap || "") ||
         GAP_FALLBACK
       : GAP_FALLBACK;
-    // The track's negative margin-left pulls cards into the scroll element's
+    // Track's negative margin-left pulls cards into the scroll element's
     // padding-left, so the leftmost card sits at x = padLeft + trackMarginLeft,
     // not at padLeft. Size cards so the rightmost visible card reaches the
     // scrollport's right edge while reserving room on its right for the hover
@@ -146,7 +135,7 @@ export function ProjectsHomeCarousel({
       ),
     );
 
-    // Trailing pad so the last (possibly short) page is reachable as left-aligned.
+    // Trailing spacer so the last (possibly short) page is reachable as left-aligned.
     const nextPageCount = Math.max(1, Math.ceil(N / nextSlots));
     const lastPageStart = (nextPageCount - 1) * nextSlots;
     const lastPageCount = Math.max(1, N - lastPageStart);
@@ -215,13 +204,10 @@ export function ProjectsHomeCarousel({
     syncButtons();
   }, [N, clearScrollLockTimer, currentPageIndex, slots, syncButtons]);
 
-  // Phase 1: measure on mount and when card count changes.
   useLayoutEffect(() => {
     measure();
   }, [measure]);
 
-  // Phase 2: after layout (new card width, pad, slot count) commits, recompute
-  // page targets from real DOM rects, snap to the nearest valid page, sync buttons.
   useLayoutEffect(() => {
     if (cardWidthPx == null) return;
     recomputePageTargets();
@@ -237,7 +223,6 @@ export function ProjectsHomeCarousel({
     syncButtons,
   ]);
 
-  // Event wiring: resize, scroll, scrollend.
   useEffect(() => {
     const el = scrollRef.current;
     if (!el) return;
@@ -303,57 +288,7 @@ export function ProjectsHomeCarousel({
         style={scrollStyle}
       >
         <div className="projects-home__track" ref={trackRef}>
-          {cases.map((c) => (
-            <article
-              key={c.id}
-              className="project-card project-card--home-strip"
-            >
-              <div className="project-visual">
-                {c.imageSrc ? (
-                  <Image
-                    src={c.imageSrc}
-                    alt=""
-                    width={800}
-                    height={450}
-                    sizes="280px"
-                  />
-                ) : (
-                  <span className="placeholder">{imagePlaceholder}</span>
-                )}
-              </div>
-              <div className="project-body">
-                <div className="project-tags">
-                  {c.tags.map((tag) => (
-                    <span key={tag} className="tag">
-                      {tag}
-                    </span>
-                  ))}
-                </div>
-                <h3 className="project-title">{c.title}</h3>
-                <p className="project-desc">{c.description}</p>
-                <div className="project-footer">
-                  <div className="metric">
-                    <div className="metric-value">{c.metric}</div>
-                    <div className="metric-label">{c.metricLabel}</div>
-                  </div>
-                  <a href={`/projects?id=${c.id}`} className="read-link">
-                    {readLabel}
-                    <svg
-                      width="14"
-                      height="14"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      stroke="currentColor"
-                      strokeWidth="2"
-                      aria-hidden={true}
-                    >
-                      <path d="M5 12h14M13 5l7 7-7 7" />
-                    </svg>
-                  </a>
-                </div>
-              </div>
-            </article>
-          ))}
+          {children}
           {trackPadEndPx > 0 ? (
             <div
               className="projects-home__spacer"

@@ -62,6 +62,8 @@ export function validateApplication(item: unknown, index: number): asserts item 
   assertNonEmptyString(o.tag, "tag", ctx);
   if (o.category !== undefined) assertNonEmptyString(o.category, "category", ctx);
   if (o.highlight !== undefined) assertNonEmptyString(o.highlight, "highlight", ctx);
+  assertNonEmptyString(o.metric, "metric", ctx);
+  assertNonEmptyString(o.metricLabel, "metricLabel", ctx);
   assertNonEmptyString(o.coverSrc, "coverSrc", ctx);
   assertImagePath(o.coverSrc as string, "coverSrc", ctx, false);
   assertNonEmptyString(o.tryItUrl, "tryItUrl", ctx);
