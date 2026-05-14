@@ -123,7 +123,6 @@ export type SiteContent = {
   urls: {
     email: string;
     linkedIn: string;
-    resume: string;
   };
   seo: {
     defaultDescription: string;
@@ -133,8 +132,6 @@ export type SiteContent = {
     fallbackProjectListTitle: string;
   };
   nav: {
-    showStatus: boolean;
-    statusText: string;
     links: NavLink[];
     resumeLabel: string;
   };

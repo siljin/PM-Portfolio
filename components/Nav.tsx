@@ -45,8 +45,20 @@ function initialsOf(name: string): string {
     .slice(0, 2);
 }
 
-export function Nav() {
-  const { nav, urls, identity } = getSite();
+/**
+ * `showStatus`, `statusText`, and `resumeUrl` are env-driven (see
+ * `config/application.yml`). They are resolved server-side in `app/layout.tsx`
+ * and passed in as props so this client component does not need to read
+ * `process.env` directly.
+ */
+type NavProps = {
+  showStatus: boolean;
+  statusText: string;
+  resumeUrl: string;
+};
+
+export function Nav({ showStatus, statusText, resumeUrl }: NavProps) {
+  const { nav, identity } = getSite();
   const pathname = usePathname() ?? "/";
   const initials = initialsOf(identity.fullName);
   return (
@@ -59,10 +71,10 @@ export function Nav() {
           <span className="logo-name">{identity.fullName}</span>
         </Link>
         <div className="nav-links">
-          {nav.showStatus && (
+          {showStatus && (
             <span className="nav-status">
               <span className="pulse"></span>
-              {nav.statusText}
+              {statusText}
             </span>
           )}
           {nav.links.map((link) => (
@@ -73,7 +85,7 @@ export function Nav() {
               active={isActive(pathname, link.href)}
             />
           ))}
-          <a href={urls.resume} className="nav-resume" target="_blank" rel="noopener noreferrer">
+          <a href={resumeUrl} className="nav-resume" target="_blank" rel="noopener noreferrer">
             {nav.resumeLabel}
           </a>
         </div>

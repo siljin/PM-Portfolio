@@ -1,0 +1,22 @@
+# Application configuration.
+# Boilerplate metadata is set inline; runtime toggles reference environment
+# variables via `${VAR}` (with optional `${VAR:-default}` fallbacks). Values
+# are resolved at build time by `lib/config.ts`. Edit `.env.local` to change
+# behavior without touching code.
+
+application:
+  name: PM Portfolio
+  version: 0.1.0
+  description: Personal portfolio site for Siljin Sebastian
+  author: Siljin Sebastian
+
+features:
+  # Toggles the status pulse in the nav.
+  # Accepts: true | false
+  showStatus: ${SHOW_STATUS:-false}
+  # Label shown next to the pulse when `showStatus` is true.
+  statusText: ${STATUS_TEXT:-Open to internships}
+
+urls:
+  # Public link for the "Resume" button in the nav.
+  resume: ${RESUME_URL}

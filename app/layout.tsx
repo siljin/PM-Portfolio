@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Fraunces, Inter_Tight, JetBrains_Mono } from "next/font/google";
 import { Nav } from "@/components/Nav";
 import { SiteFooter } from "@/components/SiteFooter";
+import { getAppConfig } from "@/lib/config";
 import { getSite } from "@/lib/site";
 import "./globals.css";
 
@@ -40,13 +41,18 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const { features, urls } = getAppConfig();
   return (
     <html
       lang="en"
       className={`${fraunces.variable} ${interTight.variable} ${jetbrainsMono.variable}`}
     >
       <body style={{ fontFamily: "var(--font-inter-tight)" }}>
-        <Nav />
+        <Nav
+          showStatus={features.showStatus}
+          statusText={features.statusText}
+          resumeUrl={urls.resume}
+        />
         {children}
         <SiteFooter />
       </body>

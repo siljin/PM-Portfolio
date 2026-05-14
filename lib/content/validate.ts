@@ -188,7 +188,6 @@ export function validateSite(data: unknown): asserts data is SiteContent {
   const urls = root.urls as Record<string, unknown>;
   assertNonEmptyString(urls.email, "urls.email", ctx);
   assertNonEmptyString(urls.linkedIn, "urls.linkedIn", ctx);
-  assertNonEmptyString(urls.resume, "urls.resume", ctx);
 
   const seo = root.seo as Record<string, unknown>;
   assertNonEmptyString(seo.defaultDescription, "seo.defaultDescription", ctx);
@@ -202,8 +201,6 @@ export function validateSite(data: unknown): asserts data is SiteContent {
   assertNonEmptyString(meta.fallbackProjectListTitle, "metadata.fallbackProjectListTitle", ctx);
 
   const nav = root.nav as Record<string, unknown>;
-  if (typeof nav.showStatus !== "boolean") throw new Error(`${ctx}.nav.showStatus must be boolean`);
-  assertNonEmptyString(nav.statusText, "nav.statusText", ctx);
   if (!Array.isArray(nav.links) || nav.links.length === 0) throw new Error(`${ctx}.nav.links required`);
   nav.links.forEach((link, i) => {
     if (typeof link !== "object" || link === null) throw new Error(`${ctx}.nav.links[${i}]`);
