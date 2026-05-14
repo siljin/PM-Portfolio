@@ -1,46 +1,92 @@
 "use client";
 
 import Link from "next/link";
-import {
-  nav_status_text,
-  resume_url,
-  show_nav_status,
-} from "@/lib/global-variables";
+import { usePathname } from "next/navigation";
+import { getSite } from "@/lib/site";
 
-export function Nav() {
+function isActive(pathname: string, href: string): boolean {
+  if (href.startsWith("#")) return false;
+  if (href === "/") return pathname === "/";
+  return pathname === href || pathname.startsWith(`${href}/`);
+}
+
+function NavItem({
+  href,
+  label,
+  active,
+}: {
+  href: string;
+  label: string;
+  active: boolean;
+}) {
+  const className = active ? "is-active" : undefined;
+  const ariaCurrent = active ? "page" : undefined;
+  if (href.startsWith("#")) {
+    return (
+      <a href={href} className={className} aria-current={ariaCurrent}>
+        {label}
+      </a>
+    );
+  }
+  return (
+    <Link href={href} className={className} aria-current={ariaCurrent}>
+      {label}
+    </Link>
+  );
+}
+
+function initialsOf(name: string): string {
+  return name
+    .split(/\s+/)
+    .filter(Boolean)
+    .map((part) => part[0])
+    .join("")
+    .toUpperCase()
+    .slice(0, 2);
+}
+
+/**
+ * `showStatus`, `statusText`, and `resumeUrl` are env-driven (see
+ * `config/application.yml`). They are resolved server-side in `app/layout.tsx`
+ * and passed in as props so this client component does not need to read
+ * `process.env` directly.
+ */
+type NavProps = {
+  showStatus: boolean;
+  statusText: string;
+  resumeUrl: string;
+};
+
+export function Nav({ showStatus, statusText, resumeUrl }: NavProps) {
+  const { nav, identity } = getSite();
+  const pathname = usePathname() ?? "/";
+  const initials = initialsOf(identity.fullName);
   return (
     <nav>
       <div className="nav-inner">
         <Link href="/" className="logo">
-          Siljin Sebastian<span className="dot">.</span>
+          <span className="logo-badge" aria-hidden="true">
+            {initials}
+          </span>
+          <span className="logo-name">{identity.fullName}</span>
         </Link>
         <div className="nav-links">
-          {show_nav_status && (
+          {showStatus && (
             <span className="nav-status">
               <span className="pulse"></span>
-              {nav_status_text}
+              {statusText}
             </span>
           )}
-          <Link href="/applications">Applications</Link>
-          <Link href="/projects">Projects</Link>
-          {/* <a href="#about">About</a> */}
-          <a href="#contact">Contact</a>
-          <a href={resume_url} className="nav-resume" target="_blank" rel="noopener noreferrer">
-            Resume
-            <svg
-              width="12"
-              height="12"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="2.5"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            >
-              <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
-              <polyline points="7 10 12 15 17 10" />
-              <line x1="12" y1="15" x2="12" y2="3" />
-            </svg>
+          {nav.links.map((link) => (
+            <NavItem
+              key={link.href + link.label}
+              href={link.href}
+              label={link.label}
+              active={isActive(pathname, link.href)}
+            />
+          ))}
+          <a href={resumeUrl} className="nav-resume" target="_blank" rel="noopener noreferrer">
+            {nav.resumeLabel}
           </a>
         </div>
       </div>

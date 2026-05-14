@@ -101,31 +101,62 @@ body {
 
 /* NAV */
 nav {
-  position: sticky;
+  position: fixed;
   top: 0;
-  z-index: 50;
-  background: rgba(255, 255, 255, 0.75);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
+  left: 0;
+  right: 0;
+  z-index: 100;
+  background: rgba(255, 255, 255, 0.92);
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
   border-bottom: 1px solid var(--line-soft);
+}
+
+body {
+  padding-top: 64px;
 }
 
 .nav-inner {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 18px 40px;
+  padding: 14px 24px 14px 8px;
   max-width: var(--max);
   margin: 0 auto;
 }
 
 .logo {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
   font-family: var(--font-fraunces);
-  font-weight: 600;
+  font-weight: 700;
   font-size: 19px;
   letter-spacing: -0.02em;
-  color: var(--ink);
+  color: var(--blue);
   text-decoration: none;
+}
+
+.logo-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 30px;
+  height: 30px;
+  border-radius: 9px;
+  background: var(--blue);
+  color: #fff;
+  font-family: var(--font-jetbrains), ui-monospace, monospace;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  box-shadow:
+    0 1px 1px rgba(15, 23, 42, 0.08),
+    0 8px 16px -8px rgba(37, 99, 235, 0.5);
+}
+
+.logo-name {
+  line-height: 1;
 }
 
 .logo .dot {
@@ -139,15 +170,36 @@ nav {
 }
 
 .nav-links a {
+  position: relative;
   text-decoration: none;
-  color: var(--muted);
+  color: var(--ink);
   font-size: 14px;
-  font-weight: 500;
+  font-weight: 600;
+  padding-bottom: 4px;
   transition: color 0.2s ease;
 }
 
 .nav-links a:hover {
-  color: var(--ink);
+  color: var(--blue);
+}
+
+.nav-links a.is-active {
+  color: var(--blue);
+}
+
+.nav-links a.is-active::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -2px;
+  height: 2px;
+  background: var(--blue);
+  border-radius: 2px;
+}
+
+.nav-links a.nav-resume::after {
+  display: none;
 }
 
 .nav-status {
@@ -177,18 +229,19 @@ nav {
   flex-shrink: 0;
 }
 
-.nav-resume {
+.nav-links a.nav-resume {
   display: inline-flex;
   align-items: center;
-  gap: 6px;
-  padding: 7px 16px;
+  justify-content: center;
+  padding: 7px 18px;
   border: 1px solid var(--blue);
   color: var(--blue) !important;
+  font-weight: 700;
   border-radius: 999px;
   transition: all 0.2s ease;
 }
 
-.nav-resume:hover {
+.nav-links a.nav-resume:hover {
   background: var(--blue);
   color: white !important;
 }
@@ -206,21 +259,21 @@ nav {
 .hero-frame {
   position: relative;
   z-index: 1;
-  padding: 20px 28px 40px;
+  padding: 24px 28px 16px;
 }
 
 .hero-card {
   position: relative;
   background: var(--dark);
-  border-radius: 32px;
-  padding: 52px 64px;
+  border-radius: 36px;
+  padding: 72px 72px;
   overflow: hidden;
   color: #e6ebf5;
   max-width: var(--max);
   margin: 0 auto;
   box-shadow:
     0 1px 2px rgba(10, 14, 26, 0.04),
-    0 30px 60px -20px rgba(10, 14, 26, 0.25),
+    0 40px 72px -24px rgba(10, 14, 26, 0.32),
     0 0 0 1px rgba(255, 255, 255, 0.02) inset;
 }
 
@@ -454,12 +507,12 @@ nav {
 
 /* Section common */
 section.block {
-  padding: 100px 0;
+  padding: 64px 0;
   position: relative;
 }
 
 .section-head {
-  margin-bottom: 56px;
+  margin-bottom: 36px;
   max-width: 720px;
 }
 
@@ -954,12 +1007,133 @@ section.block {
   background: var(--muted-soft);
 }
 
-/* Case Studies */
-.projects {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 24px;
+/* Home: case study carousel (archive pages use .projects-content etc.) */
+/* Bleed past .container horizontal padding so the strip lines up with .hero-card outer edges */
+.projects-home {
+  width: calc(100% + 56px);
+  margin-inline: -28px;
+}
+
+.projects-home__scroll {
+  width: 100%;
+  overflow-x: auto;
+  scroll-behavior: smooth;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+  /* Top padding holds the hover-lift breathing room; bottom is just enough for the lift shadow. */
+  padding: 52px 22px 24px 22px;
+}
+
+.projects-home__scroll::-webkit-scrollbar {
+  display: none;
+}
+
+.projects-home__track {
+  display: flex;
   align-items: stretch;
+  gap: 34px;
+  margin-left: -16px;
+  margin-right: -22px;
+  width: calc(100% + 38px);
+}
+
+.projects-home__spacer {
+  flex: 0 0 auto;
+  align-self: stretch;
+  pointer-events: none;
+}
+
+.project-card--home-strip {
+  box-sizing: border-box;
+  flex: 0 0 var(--projects-home-card-width, 280px);
+  width: var(--projects-home-card-width, 280px);
+  min-width: var(--projects-home-card-width, 280px);
+  max-width: var(--projects-home-card-width, 280px);
+  transform-origin: center bottom;
+  transition:
+    transform 0.32s cubic-bezier(0.33, 1, 0.68, 1),
+    border-color 0.3s ease,
+    box-shadow 0.32s cubic-bezier(0.33, 1, 0.68, 1);
+}
+
+.project-card--home-strip:hover,
+.project-card--home-strip:focus-within {
+  z-index: 2;
+  border-color: var(--blue-bright);
+  transform: translateY(-5px) scale(1.02);
+  box-shadow:
+    0 8px 24px -8px rgba(15, 23, 42, 0.12),
+    0 28px 56px -16px rgba(37, 99, 235, 0.35);
+}
+
+.project-card--home-strip:hover .project-visual::after,
+.project-card--home-strip:focus-within .project-visual::after {
+  transform: translate(-20px, 10px) scale(1.15);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .project-card--home-strip {
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+  }
+
+  .project-card--home-strip:hover,
+  .project-card--home-strip:focus-within {
+    transform: none;
+    box-shadow: 0 12px 28px -12px rgba(37, 99, 235, 0.22);
+  }
+
+  .project-card--home-strip:hover .project-visual::after,
+  .project-card--home-strip:focus-within .project-visual::after {
+    transform: none;
+  }
+}
+
+.projects-home__controls {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  margin-top: 4px;
+}
+
+.projects-home__arrow {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  padding: 0;
+  border-radius: 12px;
+  border: 1px solid rgba(37, 99, 235, 0.22);
+  background: rgba(37, 99, 235, 0.08);
+  color: var(--blue);
+  cursor: pointer;
+  transition: border-color 0.2s ease, color 0.2s ease, background 0.2s ease,
+    box-shadow 0.2s ease, transform 0.2s ease;
+}
+
+.projects-home__arrow:hover:not(:disabled) {
+  background: var(--blue);
+  border-color: var(--blue);
+  color: #fff;
+  box-shadow: 0 8px 20px -8px rgba(37, 99, 235, 0.5);
+  transform: translateY(-1px);
+}
+
+.projects-home__arrow:focus-visible {
+  outline: 2px solid var(--blue);
+  outline-offset: 2px;
+}
+
+.projects-home__arrow:disabled {
+  opacity: 0.36;
+  cursor: default;
+  background: rgba(37, 99, 235, 0.05);
+  border-color: rgba(37, 99, 235, 0.15);
+  color: var(--blue);
+}
+
+.projects-home__arrow:disabled svg {
+  opacity: 0.9;
 }
 
 .project-card {
@@ -968,15 +1142,12 @@ section.block {
   border: 1px solid var(--line);
   border-radius: 20px;
   overflow: hidden;
-  transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1), border-color 0.35s ease, box-shadow 0.35s ease;
   display: flex;
   flex-direction: column;
 }
 
 .project-card:hover {
   border-color: var(--blue-bright);
-  transform: translateY(-4px);
-  box-shadow: 0 24px 48px -20px rgba(37, 99, 235, 0.2);
 }
 
 .project-visual {
@@ -1009,10 +1180,6 @@ section.block {
   top: 15%;
   right: 12%;
   transition: transform 0.6s ease;
-}
-
-.project-card:hover .project-visual::after {
-  transform: translate(-20px, 10px) scale(1.1);
 }
 
 .project-visual img {
@@ -1378,7 +1545,7 @@ section.block {
 
 /* Contact section */
 .contact-block {
-  padding: 120px 0 80px;
+  padding: 72px 0 56px;
   text-align: center;
   position: relative;
 }
@@ -1560,12 +1727,12 @@ footer {
 /* Responsive */
 @media (max-width: 900px) {
   .hero-frame {
-    padding: 12px 14px 28px;
+    padding: 16px 14px 12px;
   }
 
   .hero-card {
-    padding: 40px 28px;
-    border-radius: 24px;
+    padding: 56px 32px;
+    border-radius: 28px;
   }
 
   .hero-meta {
@@ -1595,8 +1762,12 @@ footer {
     padding: 0 20px;
   }
 
-  .cases,
-  .projects {
+  .projects-home {
+    width: calc(100% + 40px);
+    margin-inline: -20px;
+  }
+
+  .cases {
     grid-template-columns: 1fr;
     gap: 20px;
   }
@@ -1606,11 +1777,11 @@ footer {
   }
 
   section.block {
-    padding: 72px 0;
+    padding: 48px 0;
   }
 
   .contact-block {
-    padding: 80px 0 60px;
+    padding: 56px 0 40px;
   }
 
   .projects-layout-wrapper {

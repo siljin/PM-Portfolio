@@ -1,12 +1,11 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, Suspense } from "react";
 import { useSearchParams } from "next/navigation";
-import { Suspense } from "react";
 import { getProjects } from "@/lib/applications";
-import { ApplicationsNav } from "@/components/applications/ApplicationsNav";
 import { ApplicationsSidebar } from "@/components/applications/ApplicationsSidebar";
 import { ApplicationDetailPanel } from "@/components/applications/ApplicationDetailPanel";
+import { getSite } from "@/lib/site";
 
 function ProjectsContent() {
   const projects = getProjects();
@@ -26,42 +25,39 @@ function ProjectsContent() {
   const selectedProject = projects.find((p) => p.id === selectedId);
 
   return (
-    <>
-      <ApplicationsNav />
-
-      <div
-        className={`projects-layout-wrapper applications-layout ${
-          isSidebarExpanded ? "is-expanded" : ""
-        }`}
-      >
-        <ApplicationsSidebar
-          projects={projects}
-          selectedId={selectedId}
-          isExpanded={isSidebarExpanded}
-          onToggleExpand={() => setIsSidebarExpanded((prev) => !prev)}
-          onSelect={(id) => {
-            setSelectedId(id);
-            setShowArchModal(false);
-            setShowSeqModal(false);
-          }}
-        />
-        <ApplicationDetailPanel
-          project={selectedProject}
-          showArchModal={showArchModal}
-          showSeqModal={showSeqModal}
-          onOpenArchitecture={() => setShowArchModal(true)}
-          onOpenSequence={() => setShowSeqModal(true)}
-          onCloseArchitecture={() => setShowArchModal(false)}
-          onCloseSequence={() => setShowSeqModal(false)}
-        />
-      </div>
-    </>
+    <div
+      className={`projects-layout-wrapper applications-layout ${
+        isSidebarExpanded ? "is-expanded" : ""
+      }`}
+    >
+      <ApplicationsSidebar
+        projects={projects}
+        selectedId={selectedId}
+        isExpanded={isSidebarExpanded}
+        onToggleExpand={() => setIsSidebarExpanded((prev) => !prev)}
+        onSelect={(id) => {
+          setSelectedId(id);
+          setShowArchModal(false);
+          setShowSeqModal(false);
+        }}
+      />
+      <ApplicationDetailPanel
+        project={selectedProject}
+        showArchModal={showArchModal}
+        showSeqModal={showSeqModal}
+        onOpenArchitecture={() => setShowArchModal(true)}
+        onOpenSequence={() => setShowSeqModal(true)}
+        onCloseArchitecture={() => setShowArchModal(false)}
+        onCloseSequence={() => setShowSeqModal(false)}
+      />
+    </div>
   );
 }
 
 export default function Page() {
+  const loading = getSite().system.loading;
   return (
-    <Suspense fallback={<div>Loading...</div>}>
+    <Suspense fallback={<div>{loading}</div>}>
       <ProjectsContent />
     </Suspense>
   );
