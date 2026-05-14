@@ -2,7 +2,6 @@
 
 import { useEffect, useState } from "react";
 import { useSearchParams } from "next/navigation";
-import { ArchiveNav } from "@/components/ArchiveNav";
 import { getSite } from "@/lib/site";
 import type { Project } from "@/lib/projects";
 
@@ -29,14 +28,11 @@ export function ProjectsCaseArchive({ cases }: ProjectsCaseArchiveProps) {
   const selectedCase = cases.find((c) => c.id === selectedId);
 
   return (
-    <>
-      <ArchiveNav />
-
-      <div
-        className={`projects-layout-wrapper applications-layout ${
-          isSidebarExpanded ? "is-expanded" : ""
-        }`}
-      >
+    <div
+      className={`projects-layout-wrapper applications-layout ${
+        isSidebarExpanded ? "is-expanded" : ""
+      }`}
+    >
         <aside className="projects-sidebar">
           <div className="projects-sidebar-header">
             <button
@@ -149,8 +145,7 @@ export function ProjectsCaseArchive({ cases }: ProjectsCaseArchiveProps) {
               <h2 className="projects-content-title">{projectsArchive.emptyTitle}</h2>
             </div>
           )}
-        </main>
-      </div>
-    </>
+      </main>
+    </div>
   );
 }

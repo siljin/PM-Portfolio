@@ -21,6 +21,7 @@
     "showStatus": false,
     "statusText": "Open to internships - 2026",
     "links": [
+      { "label": "Home", "href": "/" },
       { "label": "Applications", "href": "/applications" },
       { "label": "Projects", "href": "/projects" },
       { "label": "Contact", "href": "#contact" }

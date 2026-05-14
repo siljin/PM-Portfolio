@@ -1,23 +1,62 @@
 "use client";
 
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { getSite } from "@/lib/site";
 
-function NavItem({ href, label }: { href: string; label: string }) {
+function isActive(pathname: string, href: string): boolean {
+  if (href.startsWith("#")) return false;
+  if (href === "/") return pathname === "/";
+  return pathname === href || pathname.startsWith(`${href}/`);
+}
+
+function NavItem({
+  href,
+  label,
+  active,
+}: {
+  href: string;
+  label: string;
+  active: boolean;
+}) {
+  const className = active ? "is-active" : undefined;
+  const ariaCurrent = active ? "page" : undefined;
   if (href.startsWith("#")) {
-    return <a href={href}>{label}</a>;
+    return (
+      <a href={href} className={className} aria-current={ariaCurrent}>
+        {label}
+      </a>
+    );
   }
-  return <Link href={href}>{label}</Link>;
+  return (
+    <Link href={href} className={className} aria-current={ariaCurrent}>
+      {label}
+    </Link>
+  );
+}
+
+function initialsOf(name: string): string {
+  return name
+    .split(/\s+/)
+    .filter(Boolean)
+    .map((part) => part[0])
+    .join("")
+    .toUpperCase()
+    .slice(0, 2);
 }
 
 export function Nav() {
   const { nav, urls, identity } = getSite();
+  const pathname = usePathname() ?? "/";
+  const initials = initialsOf(identity.fullName);
   return (
     <nav>
       <div className="nav-inner">
         <Link href="/" className="logo">
-          {identity.fullName}
-          <span className="dot">{identity.logoDot}</span>
+          <span className="logo-badge" aria-hidden="true">
+            {initials}
+          </span>
+          <span className="logo-name">{identity.fullName}</span>
         </Link>
         <div className="nav-links">
           {nav.showStatus && (
@@ -27,24 +66,15 @@ export function Nav() {
             </span>
           )}
           {nav.links.map((link) => (
-            <NavItem key={link.href + link.label} href={link.href} label={link.label} />
+            <NavItem
+              key={link.href + link.label}
+              href={link.href}
+              label={link.label}
+              active={isActive(pathname, link.href)}
+            />
           ))}
           <a href={urls.resume} className="nav-resume" target="_blank" rel="noopener noreferrer">
             {nav.resumeLabel}
-            <svg
-              width="12"
-              height="12"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="2.5"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            >
-              <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
-              <polyline points="7 10 12 15 17 10" />
-              <line x1="12" y1="15" x2="12" y2="3" />
-            </svg>
           </a>
         </div>
       </div>
