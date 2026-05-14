@@ -206,21 +206,21 @@ nav {
 .hero-frame {
   position: relative;
   z-index: 1;
-  padding: 20px 28px 40px;
+  padding: 24px 28px 16px;
 }
 
 .hero-card {
   position: relative;
   background: var(--dark);
-  border-radius: 32px;
-  padding: 52px 64px;
+  border-radius: 36px;
+  padding: 72px 72px;
   overflow: hidden;
   color: #e6ebf5;
   max-width: var(--max);
   margin: 0 auto;
   box-shadow:
     0 1px 2px rgba(10, 14, 26, 0.04),
-    0 30px 60px -20px rgba(10, 14, 26, 0.25),
+    0 40px 72px -24px rgba(10, 14, 26, 0.32),
     0 0 0 1px rgba(255, 255, 255, 0.02) inset;
 }
 
@@ -454,12 +454,12 @@ nav {
 
 /* Section common */
 section.block {
-  padding: 100px 0;
+  padding: 64px 0;
   position: relative;
 }
 
 .section-head {
-  margin-bottom: 56px;
+  margin-bottom: 36px;
   max-width: 720px;
 }
 
@@ -967,8 +967,8 @@ section.block {
   scroll-behavior: smooth;
   -webkit-overflow-scrolling: touch;
   scrollbar-width: none;
-  /* Extra left for hover; generous right inset so the 4th card never peeks (incl. subpixel). */
-  padding: 52px 22px 44px 22px;
+  /* Top padding holds the hover-lift breathing room; bottom is just enough for the lift shadow. */
+  padding: 52px 22px 24px 22px;
 }
 
 .projects-home__scroll::-webkit-scrollbar {
@@ -1039,7 +1039,7 @@ section.block {
   display: flex;
   justify-content: flex-end;
   gap: 10px;
-  margin-top: 20px;
+  margin-top: 4px;
 }
 
 .projects-home__arrow {
@@ -1050,16 +1050,20 @@ section.block {
   height: 44px;
   padding: 0;
   border-radius: 12px;
-  border: 1px solid var(--line);
-  background: var(--bg);
-  color: var(--ink);
+  border: 1px solid rgba(37, 99, 235, 0.22);
+  background: rgba(37, 99, 235, 0.08);
+  color: var(--blue);
   cursor: pointer;
-  transition: border-color 0.2s ease, color 0.2s ease, background 0.2s ease;
+  transition: border-color 0.2s ease, color 0.2s ease, background 0.2s ease,
+    box-shadow 0.2s ease, transform 0.2s ease;
 }
 
 .projects-home__arrow:hover:not(:disabled) {
-  border-color: var(--blue-bright);
-  color: var(--blue);
+  background: var(--blue);
+  border-color: var(--blue);
+  color: #fff;
+  box-shadow: 0 8px 20px -8px rgba(37, 99, 235, 0.5);
+  transform: translateY(-1px);
 }
 
 .projects-home__arrow:focus-visible {
@@ -1068,8 +1072,11 @@ section.block {
 }
 
 .projects-home__arrow:disabled {
-  opacity: 0.32;
+  opacity: 0.36;
   cursor: default;
+  background: rgba(37, 99, 235, 0.05);
+  border-color: rgba(37, 99, 235, 0.15);
+  color: var(--blue);
 }
 
 .projects-home__arrow:disabled svg {
@@ -1485,7 +1492,7 @@ section.block {
 
 /* Contact section */
 .contact-block {
-  padding: 120px 0 80px;
+  padding: 72px 0 56px;
   text-align: center;
   position: relative;
 }
@@ -1667,12 +1674,12 @@ footer {
 /* Responsive */
 @media (max-width: 900px) {
   .hero-frame {
-    padding: 12px 14px 28px;
+    padding: 16px 14px 12px;
   }
 
   .hero-card {
-    padding: 40px 28px;
-    border-radius: 24px;
+    padding: 56px 32px;
+    border-radius: 28px;
   }
 
   .hero-meta {
@@ -1717,11 +1724,11 @@ footer {
   }
 
   section.block {
-    padding: 72px 0;
+    padding: 48px 0;
   }
 
   .contact-block {
-    padding: 80px 0 60px;
+    padding: 56px 0 40px;
   }
 
   .projects-layout-wrapper {
